@@ -1,0 +1,16 @@
+title: "hugues_esc personal blog"
+description: "personal interests"
+theme: minima 
+
+# Navigation
+nav:
+  - name: "Home"
+    link: "/"
+  - name: "Projects"
+    link: "/projects/"
+  - name: "Reflect"
+    link: "/reflect/"
+  - name: "Art"
+    link: "/art/"
+  - name: "Advent of Code"
+    link: "/advent_of_code/"
