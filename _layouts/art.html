@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>{{ page.title }} | {{ site.title }}</title>
+  <style>
+    body {
+      background-color: #fdf6e3; /* fond crème */
+      font-family: 'Georgia', serif;
+      margin: 0;
+      padding: 0;
+      color: #333;
+    }
+
+    header {
+      text-align: center;
+      padding: 2rem 1rem 1rem 1rem;
+      font-family: 'Brush Script MT', 'Lucida Handwriting', cursive; /* effet calligraphie */
+      font-size: 3rem;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr); /* 3 colonnes */
+      gap: 1.5rem;
+      padding: 2rem;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .gallery-item {
+      background: white;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      transition: transform 0.2s ease-in-out;
+    }
+
+    .gallery-item:hover {
+      transform: scale(1.03);
+    }
+
+    .gallery-item img {
+      width: 100%;
+      display: block;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem;
+      font-size: 0.9rem;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    {{ page.title }}
+  </header>
+
+  <main>
+    <div class="gallery">
+      {{ content }}
+    </div>
+  </main>
+
+  <footer>
+    © {{ site.title }} — {{ site.time | date: "%Y" }}
+  </footer>
+</body>
+</html>
