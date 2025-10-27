@@ -6,7 +6,7 @@
   <style>
     body {
       background-color: #faf9f4;
-      font-family: 'Perpetua', serif;
+      font-family: 'Cormorant Garamond', serif;
       margin: 0;
       padding: 0;
       color: #333;
@@ -15,64 +15,119 @@
     header {
       text-align: center;
       padding: 2rem 1rem 1rem 1rem;
-      font-family: 'Perpetua', serif;
-      font-size: 3rem;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 3.2rem;
+      font-weight: 600;
+      letter-spacing: 0.05rem;
     }
 
     .gallery {
       display: grid;
-      grid-template-columns: repeat(3, 1fr); /* 3 cols */
-      gap: 1.5rem;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.8rem;
       padding: 2rem;
-      max-width: 1200px;
+      max-width: 1400px;
       margin: auto;
     }
 
     .gallery-item {
-      background: white;
-      border-radius: 8px;
+      position: relative;
+      background: #ffffff;
+      border-radius: 12px;
       overflow: hidden;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-      transition: transform 0.2s ease-in-out;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
     }
 
     .gallery-item:hover {
-      transform: scale(1.03);
+      transform: translateY(-4px);
+      box-shadow: 0 10px 22px rgba(0,0,0,0.12);
     }
 
     .gallery-item img {
       width: 100%;
+      height: auto;
       display: block;
+    }
+
+    /* Lightbox */
+    .lightbox {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.8);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    }
+
+    .lightbox-content {
+      max-width: 80%;
+      max-height: 85%;
+      background: #fff;
+      padding: 1rem;
+      border-radius: 10px;
+      position: relative;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+    }
+
+    .lightbox-content img {
+      width: 100%;
+      height: auto;
+      border-radius: 6px;
+    }
+
+    .lightbox-info {
+      margin-top: 1rem;
+      font-size: 1.1rem;
+      font-family: 'Cormorant Garamond', serif;
+      text-align: center;
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      cursor: pointer;
+      font-size: 2rem;
+      color: #222;
+      font-weight: bold;
     }
 
     footer {
       text-align: center;
       padding: 2rem;
-      font-size: 0.9rem;
+      font-size: 1rem;
       color: #666;
+      font-family: 'Cormorant Garamond', serif;
     }
 
     footer .links {
       margin-top: 1rem;
       display: flex;
       justify-content: center;
-      gap: 1.5rem;
+      gap: 1.7rem;
     }
 
     footer a {
       color: #666;
       text-decoration: none;
       transition: color 0.2s;
+      display: inline-flex;
+      align-items: center;
     }
 
     footer a:hover {
-      color: #000;
+      color: #111;
     }
 
     footer svg {
-      width: 20px;
-      height: 20px;
-      vertical-align: middle;
+      width: 24px;
+      height: 24px;
     }
   </style>
 </head>
@@ -87,40 +142,49 @@
     </div>
   </main>
 
+  <!-- LIGHTBOX -->
+  <div class="lightbox" id="lightbox">
+    <div class="lightbox-content">
+      <div class="lightbox-close" onclick="closeLightbox()">&times;</div>
+      <img id="lightbox-img" src="" alt="Artwork">
+      <div class="lightbox-info" id="lightbox-info"></div>
+    </div>
+  </div>
+
   <footer>
     <div class="links">
       <a href="{{ '/' | relative_url }}" title="Home">
-        <!-- Home icon -->
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-            d="M3 12l9-9 9 9M4 10v10h6V14h4v6h6V10" />
-        </svg>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7"></path><path d="M9 22V12h6v10"></path></svg>
       </a>
-
       <a href="https://github.com/h-escoffier" target="_blank" title="GitHub">
-        <!-- GitHub icon -->
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-          <path fill-rule="evenodd" clip-rule="evenodd"
-            d="M12 .5C5.37.5 0 5.87 0 12.5c0 5.29 3.438 9.77 8.207 11.36.6.11.793-.26.793-.58v-2.02c-3.338.73-4.043-1.61-4.043-1.61-.546-1.39-1.333-1.76-1.333-1.76-1.09-.74.083-.72.083-.72 1.205.09 1.84 1.24 1.84 1.24 1.07 1.84 2.807 1.31 3.493 1 .11-.78.42-1.31.76-1.61-2.665-.3-5.466-1.34-5.466-5.95 0-1.31.47-2.39 1.237-3.23-.124-.3-.537-1.52.117-3.17 0 0 1.01-.32 3.3 1.23.96-.27 1.98-.4 3-.4s2.04.13 3 .4c2.29-1.55 3.3-1.23 3.3-1.23.654 1.65.242 2.87.118 3.17.77.84 1.236 1.92 1.236 3.23 0 4.62-2.803 5.65-5.475 5.95.432.37.816 1.1.816 2.22v3.29c0 .32.192.69.8.58C20.565 22.27 24 17.79 24 12.5 24 5.87 18.63.5 12 .5z"/>
-        </svg>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-github"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
       </a>
-
       <a href="https://x.com/hugues_esc" target="_blank" title="Twitter">
-        <!-- Twitter icon -->
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-          <path
-            d="M23 3a10.9 10.9 0 01-3.14 1.53A4.48 4.48 0 0022.4 1s-2.2 1.3-4.3 1.7A4.52 4.52 0 0016.11 1c-2.6 0-4.72 2.17-4.72 4.83 0 .38.04.76.13 1.12A12.94 12.94 0 013 2.1a4.82 4.82 0 00-.64 2.43c0 1.68.84 3.17 2.12 4.04A4.4 4.4 0 012 8.1v.06c0 2.35 1.61 4.3 3.75 4.74-.4.12-.84.18-1.28.18-.31 0-.62-.03-.92-.08.63 2 2.45 3.44 4.6 3.48A9.06 9.06 0 012 19.54a12.73 12.73 0 006.92 2.06c8.3 0 12.85-7.07 12.85-13.2 0-.2 0-.39-.01-.58A9.5 9.5 0 0023 3z"/>
-        </svg>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-twitter"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg>
       </a>
-
       <a href="https://www.twitch.tv/tryptophane_" target="_blank" title="Twitch">
-        <!-- Twitch icon -->
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-          <path
-            d="M2 0L1 4v18h5v2h3l2-2h4l4-4V0H2zm18 14l-3 3h-5l-2 2v-2H6V2h14v12zM14 6h-2v5h2V6zm4 0h-2v5h2V6z"/>
-        </svg>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-twitch"><path d="M21 2H3v16h5v4l4-4h5l4-4V2zm-10 9V7m5 4V7"></path></svg>
       </a>
     </div>
   </footer>
+
+  <script>
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+    const lightboxInfo = document.getElementById('lightbox-info');
+
+    document.querySelectorAll('.gallery-item').forEach(item => {
+      item.addEventListener('click', () => {
+        const img = item.querySelector('img');
+        lightboxImg.src = img.src;
+        lightboxInfo.textContent = item.dataset.info;
+        lightbox.style.display = 'flex';
+      });
+    });
+
+    function closeLightbox() {
+      lightbox.style.display = 'none';
+    }
+  </script>
 </body>
 </html>
