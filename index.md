@@ -4,12 +4,12 @@ title: hugues_esc
 ---
 
 <main>
-  <img src="./assets/profile.jpg" alt="Portrait de Hugues" class="profile" />
+  <img src="./assets/profile_picture.tif" alt="Profile picture" class="profile" />
 
-  <h1>Hugues Esc_</h1>
+  <h1>Hugues Escoffier</h1>
 
   <p class="subtitle">
-    MD-PhD student in Bioinformatics at the University of Luxembourg.  
+    MD-PhD student in Bioinformatics at the University of Luxembourg. <br>
     This space is a collection of my projects, thoughts, and artistic experiments.
   </p>
 </main>
