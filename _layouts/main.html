@@ -1,28 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{{ page.title }}</title>
 
-  <!-- Google Fonts -->
+  <!-- Google Font -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
 
-  <!-- CSS -->
   <style>
     :root {
-      --text: #111;
-      --muted: #666;
-      --accent: #007bff;
       --bg: #ffffff;
+      --text: #111111;
+      --muted: #666666;
+      --accent: #007bff;
       --font: 'Poppins', sans-serif;
     }
 
     body {
       margin: 0;
-      font-family: var(--font);
       background: var(--bg);
       color: var(--text);
+      font-family: var(--font);
       scroll-behavior: smooth;
     }
 
@@ -30,23 +29,22 @@
     header {
       position: fixed;
       top: 0;
-      width: 100%;
-      background: rgba(255, 255, 255, 0.9);
-      backdrop-filter: blur(6px);
-      box-shadow: 0 1px 10px rgba(0, 0, 0, 0.05);
-      z-index: 1000;
+      left: 0;
+      right: 0;
+      background: rgba(255, 255, 255, 0.95);
+      border-bottom: 1px solid #e0e0e0;
       display: flex;
       justify-content: space-between;
       align-items: center;
       padding: 1rem 2rem;
+      z-index: 10;
     }
 
     header .logo {
       font-weight: 700;
-      font-size: 1.4rem;
-      color: var(--text);
-      letter-spacing: 1px;
+      font-size: 1.3rem;
       text-transform: uppercase;
+      letter-spacing: 1px;
     }
 
     nav ul {
@@ -67,8 +65,8 @@
     nav a::after {
       content: "";
       position: absolute;
-      bottom: -4px;
       left: 0;
+      bottom: -4px;
       width: 0;
       height: 2px;
       background: var(--accent);
@@ -79,57 +77,57 @@
       width: 100%;
     }
 
-    /* Main section */
+    /* Main content */
     main {
+      min-height: 100vh;
       display: flex;
       flex-direction: column;
-      align-items: center;
       justify-content: center;
-      height: 100vh;
+      align-items: center;
       text-align: center;
-      padding: 0 1rem;
+      padding-top: 6rem;
+    }
+
+    img.profile {
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      object-fit: cover;
+      box-shadow: 0 4px 30px rgba(0,0,0,0.1);
+      margin-bottom: 1.5rem;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeUp 0.8s ease-out forwards;
     }
 
     h1 {
       font-size: 4rem;
       font-weight: 800;
-      margin-bottom: 0.5rem;
-      color: var(--text);
-      animation: fadeIn 1.2s ease-out;
+      margin: 0.5rem 0;
+      animation: fadeUp 1s ease-out forwards;
     }
 
     p.subtitle {
-      color: var(--muted);
       font-size: 1.2rem;
+      color: var(--muted);
       max-width: 600px;
-      margin-bottom: 2rem;
-      animation: fadeIn 1.8s ease-out;
-    }
-
-    /* Animation */
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
+      margin: 1rem auto 0;
+      line-height: 1.6;
+      animation: fadeUp 1.3s ease-out forwards;
     }
 
     footer {
       text-align: center;
       padding: 2rem;
-      font-size: 0.9rem;
       color: var(--muted);
       border-top: 1px solid #eee;
+      font-size: 0.9rem;
     }
 
-    img.profile {
-      width: 160px;
-      height: 160px;
-      border-radius: 50%;
-      object-fit: cover;
-      box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-      margin-bottom: 1.5rem;
-      animation: fadeIn 1.5s ease-out;
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
     }
-
   </style>
 </head>
 
