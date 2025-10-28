@@ -4,71 +4,148 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{{ page.title }}</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+  <!-- Animate on Scroll -->
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
+
   <style>
     :root {
-      --bg: #fafafa;
-      --text: #111;
-      --accent: #0077ff;
-      --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      --primary: #007bff;
+      --bg: #0a0f1a;
+      --text: #e4e7ec;
+      --muted: #9aa0ac;
+      --accent: #00bcd4;
     }
+
+    * {
+      box-sizing: border-box;
+    }
+
     body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Poppins', sans-serif;
       background: var(--bg);
       color: var(--text);
-      font-family: var(--font);
-      line-height: 1.6;
-      margin: 0;
-      padding: 2rem;
+      min-height: 100vh;
       display: flex;
+      flex-direction: column;
+      align-items: center;
       justify-content: center;
+      text-align: center;
+      overflow-x: hidden;
     }
-    main {
-      max-width: 700px;
-      width: 100%;
-    }
+
     header {
-      border-bottom: 2px solid var(--accent);
       margin-bottom: 2rem;
-      padding-bottom: 0.5rem;
+      animation: fadeIn 1.2s ease-out;
     }
+
     h1 {
-      font-size: 1.8rem;
-      margin: 0;
+      font-size: 2.5rem;
+      font-weight: 600;
+      color: var(--accent);
+      letter-spacing: 2px;
+      margin: 0.5rem 0;
     }
+
+    article {
+      max-width: 700px;
+      width: 90%;
+      background: rgba(255, 255, 255, 0.03);
+      backdrop-filter: blur(6px);
+      border-radius: 16px;
+      padding: 2rem;
+      box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
+      animation: slideUp 1s ease-out;
+    }
+
     a {
       color: var(--accent);
       text-decoration: none;
+      transition: color 0.3s ease;
     }
+
     a:hover {
-      text-decoration: underline;
+      color: var(--primary);
     }
+
     ul {
       list-style: none;
       padding: 0;
+      margin: 1rem 0 0;
     }
+
     li {
+      font-size: 1.1rem;
       margin: 0.5rem 0;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeUp 0.6s ease forwards;
     }
+
+    li:nth-child(1) { animation-delay: 0.2s; }
+    li:nth-child(2) { animation-delay: 0.4s; }
+    li:nth-child(3) { animation-delay: 0.6s; }
+    li:nth-child(4) { animation-delay: 0.8s; }
+
     footer {
       margin-top: 3rem;
       font-size: 0.9rem;
-      color: #555;
-      text-align: center;
+      color: var(--muted);
+      animation: fadeIn 2s ease-out;
+    }
+
+    /* Background effect */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at 20% 20%, rgba(0, 188, 212, 0.2), transparent 60%),
+                  radial-gradient(circle at 80% 80%, rgba(0, 123, 255, 0.15), transparent 70%);
+      z-index: -1;
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeUp {
+      to { opacity: 1; transform: translateY(0); }
     }
   </style>
 </head>
+
 <body>
-  <main>
-    <header>
-      <h1>{{ page.title }}</h1>
-    </header>
+  <header>
+    <h1>{{ page.title }}</h1>
+  </header>
 
-    <article class="content">
-      {{ content }}
-    </article>
+  <article data-aos="fade-up">
+    {{ content }}
+  </article>
 
-    <footer>
-      <p>© {{ site.time | date: "%Y" }} {{ site.title | default: "hugues_esc" }}</p>
-    </footer>
-  </main>
+  <footer>
+    © {{ site.time | date: "%Y" }} {{ site.title | default: "hugues_esc" }}
+  </footer>
+
+  <!-- Animate on Scroll JS -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    AOS.init({ duration: 800, once: true });
+  </script>
 </body>
 </html>
