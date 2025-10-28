@@ -1,5 +1,5 @@
 ---
-layout: aoc
+# layout: aoc
 title: Advent of Code
 ---
 
