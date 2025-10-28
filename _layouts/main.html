@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{{ page.description }}</title>
+  <title>{{ page.title }}</title>
 
   <!-- Google Font -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
@@ -101,7 +101,7 @@
     }
 
     h1 {
-      font-size: 4rem;
+      font-size: 6rem;
       font-weight: 800;
       margin: 0.5rem 0;
       animation: fadeUp 1s ease-out forwards;
@@ -134,7 +134,7 @@
 
 <body>
   <header>
-    <div class="logo">{{ site.title | default: "hugues_esc" }}</div>
+    <div class="logo">{{ site.description | default: "hugues_esc" }}</div>
     <nav>
       <ul>
         <li><a href="/projects/">Projects</a></li>
