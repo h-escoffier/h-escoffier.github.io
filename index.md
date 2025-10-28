@@ -9,7 +9,7 @@ title: hugues_esc
   <h1>Hugues Escoffier</h1>
 
   <p class="subtitle">
-    MD-PhD student in Bioinformatics at the University of Luxembourg. <br>
+    MD-PhD student at the University of Luxembourg. <br>
     This space is a collection of my projects, thoughts, and artistic experiments.
   </p>
 </main>
