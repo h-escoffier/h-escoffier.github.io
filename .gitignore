@@ -3,3 +3,8 @@
 Gemfile
 Gemfile.lock
 .bundle/
+_site/
+.jekyll-cache/
+_layouts/aoc.html
+assets/css/aoc.css
+assets/css/SourceCodePro-300.woff
