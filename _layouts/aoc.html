@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>{{ page.title | default: "Advent of Code" }}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Styles -->
+  <style>
+    /* 
+    Background effect from https://github.com/simeydotme/sparticles
+    */
+    #sparticles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1; 
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    body {
+      margin: 0;
+      font-family: system-ui, sans-serif;
+      color: white;
+      background: #070710;
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+
+    header {
+      /* position: relative; */
+      z-index: 1;
+      text-align: left;
+      padding-top: 2rem;
+      padding-left: 2rem;
+      font-size: 2rem;
+      font-weight: bold;
+    }
+
+    main {
+      position: relative;
+      z-index: 1;
+      padding-top: 1rem;
+      padding-left: 2rem;
+      text-align: left;
+    }
+
+
+    footer {
+      text-align: center;
+      padding: 2rem;
+      font-size: 1rem;
+      color: #19193e;
+      font-family: 'Cormorant Garamond', serif;
+    }
+
+    footer .links {
+      margin-top: 1rem;
+      display: flex;
+      justify-content: center;
+      gap: 1.7rem;
+    }
+
+    footer a {
+      color: #19193e;
+      text-decoration: none;
+      transition: color 0.2s;
+      display: inline-flex;
+      align-items: center;
+    }
+
+    footer a:hover {
+      color: #111;
+    }
+
+    footer svg {
+      width: 24px;
+      height: 24px;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="sparticles"></div>
+
+  <header>{{ page.title }}</header>
+
+  <main>
+    {{ content }}
+  </main>
+
+ <footer>
+    <div class="links">
+      <a href="{{ '/' | relative_url }}" title="Home">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7"></path><path d="M9 22V12h6v10"></path></svg>
+      </a>
+    </div>
+  </footer>
+
+  <!-- Script Sparticles -->
+  <script src="{{ '/assets/js/sparticles.min.js' | relative_url }}"></script>
+  <script>
+    window.onload = function() {
+      const container = document.getElementById("sparticles");
+
+      new Sparticles(container, {
+        color: ["#ffff66"],
+        shape: "image",
+        imageUrl: "{{ '/assets/aoc_section/Star1.svg' | relative_url }}",
+        count: 50,
+        speed: 3,
+        minSize: 30,
+        maxSize: 30,
+        // parallax: 0.5,
+        rotate: true,
+        alphaSpeed: 0,
+        alphaVariance: 0,
+
+      });
+    };
+  </script>
+</body>
+</html>
