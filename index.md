@@ -1,6 +1,6 @@
 ---
 layout: main
-title: hugues_esc
+title: h_esc | homepage
 ---
 
 <main>

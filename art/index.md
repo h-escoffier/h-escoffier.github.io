@@ -1,6 +1,6 @@
 ---
 layout: art
-title: Art
+title: h_esc | art
 ---
 
 <div class="gallery-item"
