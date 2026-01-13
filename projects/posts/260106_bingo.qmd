@@ -1,7 +1,6 @@
 ---
 title: "BINGO"
 description: "Alternative to New Year's resolutions"
-author: "Hugues Esc_"
 date: "13/01/2026"
 categories:
   - Code
