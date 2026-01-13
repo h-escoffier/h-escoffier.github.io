@@ -1,0 +1,17 @@
+---
+title: "Advent of Code"
+listing:
+  contents: posts
+  sort: "date desc"
+  type: default
+  categories: true
+---
+
+This section is dedicated to my solutions, tips and learnings from participating in [Advent of Code]("https://adventofcode.com/").
+
+--- 
+
+
+
+
+

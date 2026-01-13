@@ -1,0 +1,10 @@
+---
+title: h_esc | homepage
+format:
+  html:
+    standalone: true
+    page-layout: full
+    template: _includes/main.html
+---
+
+<!-- Full content in the HTML file: '_includes/main.html' -->

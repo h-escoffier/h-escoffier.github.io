@@ -1,0 +1,123 @@
+---
+title: "BINGO"
+description: "Alternative to New Year's resolutions"
+author: "Hugues Esc_"
+date: "13/01/2026"
+categories:
+  - Code
+  - Python
+  - "2026"
+---
+
+The New Year is often synonymous with good resolutions, which are all too often tragically accompanied by despair, resulting in failures tainted with regret, sadness and frustration at not having been able to live up to these ambitions. 
+
+To avoid this problem and not sacrifice my self-esteem once again on the hotel of productivity, I decided instead to make a **Bingo** card of goals I would like to achieve this year. It contains boxes with varying degrees of difficulty, including things I really want to do, others not so much, and some that I have been postponing for far too long now. 
+
+The aim of this bingo card is not necessarily to achieve everything this year, but rather to try to achieve some of the things and complete some of the lines. 
+
+Thus, I have wrote the following python code in order to generate a 5*4 bingo from a `txt` file. 
+
+```{python, include=True}
+import matplotlib.pyplot as plt
+from matplotlib.table import Table
+import textwrap
+import random
+
+
+def read_input(path): 
+  with open(path) as f: 
+    return f.read().splitlines()
+
+
+def text_sizing(cell, text, max_font=11, min_font=0, max_chars=22): 
+  wrapped = "\n".join(textwrap.wrap(text, max_chars))
+  cell.get_text().set_text(wrapped)
+
+  lines = wrapped.count("\n") + 1
+  fontsize = max(min_font, max_font - (lines - 1) * 2)
+  cell.get_text().set_fontsize(fontsize)
+
+
+def generate_bingo(lst):
+  rows, cols = 5, 4
+  max_cells = rows * cols
+
+  sentences = lst[:max_cells]
+  padded = sentences + [""] * (max_cells - len(sentences))
+
+  table_data = [
+        padded[i * cols:(i + 1) * cols]
+        for i in range(rows)
+    ]
+
+  fig, ax = plt.subplots(figsize=(19.35, 4)) # TODO: Check this 
+  ax.axis("off")
+
+  table = ax.table(
+        cellText=table_data,
+        loc="center",
+        cellLoc="center"
+    )
+
+  table.auto_set_font_size(False)
+  table.set_fontsize(14)
+  table.scale(2, 2.5)
+
+  bg_color = "#000000"      
+  cell_color = "#222222"    
+  text_color = "#EEEEEE"
+  edge_color = "#000000"
+  fig.patch.set_facecolor(bg_color)
+  
+  for (row, col), cell in table.get_celld().items():
+    cell.set_facecolor(cell_color)
+    cell.set_edgecolor(edge_color)
+    cell.set_linewidth(1.5)
+    cell.set_text_props(
+      color=text_color,
+      fontsize=7,
+      fontfamily="monospace",
+      ha="center",
+      va="center",
+      wrap=True
+    )
+
+  for cell, text in zip(table.get_celld().values(), padded):
+    text_sizing(cell, text)
+  
+  plt.tight_layout()
+
+  return fig
+
+
+def update_bingo(fig, finish): 
+  ax = fig.axes[0]
+  table = None
+  for child in ax.get_children():
+    if isinstance(child, Table):
+      table = child
+      break
+  for (row, col), cell in table.get_celld().items():
+    cell_text = cell.get_text().get_text()
+    cell_text = cell_text.replace("\n", " ").strip()
+    if cell_text in finish:
+      cell.set_facecolor("#BD4E58")
+      cell.get_text().set_weight("bold")
+  fig.canvas.draw_idle()
+  return fig
+
+
+random.seed(655321)
+
+lst = read_input('bingo.txt')
+random.shuffle(lst)
+
+fig = generate_bingo(lst)
+
+# Update
+finish = []
+if len(finish) > 0: 
+  fig = update_bingo(fig, finish)
+
+plt.show()
+```

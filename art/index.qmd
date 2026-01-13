@@ -1,6 +1,8 @@
 ---
-layout: art
 title: h_esc | art
+format:
+  html:
+    template: ../_includes/art.html
 ---
 
 <div class="gallery-item"

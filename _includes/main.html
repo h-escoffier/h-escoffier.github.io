@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{{ page.title }}</title>
+  <title>h_esc | homepage</title>
 
   <!-- Google Font -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
@@ -33,6 +33,7 @@
       right: 0;
       background: rgba(255, 255, 255, 0.95);
       border-bottom: 1px solid #e0e0e0;
+      /* box-shadow: 0 0 8px rgba(0,0,0,0.1); */
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -79,6 +80,7 @@
 
     /* Main content */
     main {
+      padding-top: 100px; 
       min-height: 90vh;
       display: flex;
       flex-direction: column;
@@ -89,8 +91,8 @@
     }
 
     img.profile {
-      width: 180px;
-      height: 180px;
+      width: 200px;
+      height: 200px;
       border-radius: 50%;
       object-fit: cover;
       box-shadow: 0 4px 30px rgba(0,0,0,0.1);
@@ -166,7 +168,7 @@
 
 <body>
   <header>
-    <div class="logo">{{ site.description | default: "hugues_esc" }}</div>
+    <div class="logo">personal blog</div>
     <nav>
       <ul>
         <li><a href="/projects/">Projects</a></li>
@@ -177,7 +179,16 @@
     </nav>
   </header>
 
-  {{ content }}
+  <main>
+  
+  <img src="./assets/profile_picture.tif" alt="Profile picture" class="profile" />
+  <h1>Hugues Escoffier</h1>
+
+  <p class="subtitle">
+    MD-PhD student at the University of Luxembourg. <br>
+    This space is a collection of my projects, thoughts, and artistic experiments.
+  </p>
+</main>
 
  <footer>
     <div class="links">

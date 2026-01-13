@@ -1,0 +1,11 @@
+---
+title: "Day 1 - 2025 (Test)"
+description: "Lorem Ipsum"
+author: "Hugues Esc_"
+date: "24/11/2025"
+categories:
+  - Code
+  - "2025"
+---
+
+Lorem Ipsum 

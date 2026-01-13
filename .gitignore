@@ -5,3 +5,5 @@ Gemfile.lock
 .bundle/
 _site/
 .jekyll-cache/
+/.quarto/
+**/*.quarto_ipynb
