@@ -1,0 +1,37 @@
+[
+  {
+    "objectID": "advent_of_code/index.html",
+    "href": "advent_of_code/index.html",
+    "title": "Advent of Code",
+    "section": "",
+    "text": "This section is dedicated to my solutions, tips and learnings from participating in Advent of Code.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nDay 1 - 2025 (Test)\n\n\n\nCode\n\n2025\n\n\n\nLorem Ipsum\n\n\n\n\n\nDec 11, 2026\n\n\nHugues Esc_\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Hugues Escoffier",
+    "section": "",
+    "text": "Hugues Escoffier\n\n  \n    MD-PhD student at the University of Luxembourg. \n    This space is a collection of my projects, thoughts, and artistic experiments."
+  },
+  {
+    "objectID": "projects/index.html",
+    "href": "projects/index.html",
+    "title": "Projects",
+    "section": "",
+    "text": "BINGO\n\n\n\nCode\n\nPython\n\n2026\n\n\n\nAlternative to New Year’s resolutions\n\n\n\n\n\nJan 1, 2027\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "projects/posts/260106_bingo.html",
+    "href": "projects/posts/260106_bingo.html",
+    "title": "BINGO",
+    "section": "",
+    "text": "The New Year is often synonymous with good resolutions, which are all too often tragically accompanied by despair, resulting in failures tainted with regret, sadness and frustration at not having been able to live up to these ambitions.\nTo avoid this problem and not sacrifice my self-esteem once again on the hotel of productivity, I decided instead to make a Bingo card of goals I would like to achieve this year. It contains boxes with varying degrees of difficulty, including things I really want to do, others not so much, and some that I have been postponing for far too long now.\nThe aim of this bingo card is not necessarily to achieve everything this year, but rather to try to achieve some of the things and complete some of the lines.\nThus, I have wrote the following python code in order to generate a 5*4 bingo from a txt file.\n\nimport matplotlib.pyplot as plt\nfrom matplotlib.table import Table\nimport textwrap\nimport random\n\n\ndef read_input(path): \n  with open(path) as f: \n    return f.read().splitlines()\n\n\ndef text_sizing(cell, text, max_font=11, min_font=0, max_chars=22): \n  wrapped = \"\\n\".join(textwrap.wrap(text, max_chars))\n  cell.get_text().set_text(wrapped)\n\n  lines = wrapped.count(\"\\n\") + 1\n  fontsize = max(min_font, max_font - (lines - 1) * 2)\n  cell.get_text().set_fontsize(fontsize)\n\n\ndef generate_bingo(lst):\n  rows, cols = 5, 4\n  max_cells = rows * cols\n\n  sentences = lst[:max_cells]\n  padded = sentences + [\"\"] * (max_cells - len(sentences))\n\n  table_data = [\n        padded[i * cols:(i + 1) * cols]\n        for i in range(rows)\n    ]\n\n  fig, ax = plt.subplots(figsize=(19.35, 4)) # TODO: Check this \n  ax.axis(\"off\")\n\n  table = ax.table(\n        cellText=table_data,\n        loc=\"center\",\n        cellLoc=\"center\"\n    )\n\n  table.auto_set_font_size(False)\n  table.set_fontsize(14)\n  table.scale(2, 2.5)\n\n  bg_color = \"#000000\"      \n  cell_color = \"#222222\"    \n  text_color = \"#EEEEEE\"\n  edge_color = \"#000000\"\n  fig.patch.set_facecolor(bg_color)\n  \n  for (row, col), cell in table.get_celld().items():\n    cell.set_facecolor(cell_color)\n    cell.set_edgecolor(edge_color)\n    cell.set_linewidth(1.5)\n    cell.set_text_props(\n      color=text_color,\n      fontsize=7,\n      fontfamily=\"monospace\",\n      ha=\"center\",\n      va=\"center\",\n      wrap=True\n    )\n\n  for cell, text in zip(table.get_celld().values(), padded):\n    text_sizing(cell, text)\n  \n  plt.tight_layout()\n\n  return fig\n\n\ndef update_bingo(fig, finish): \n  ax = fig.axes[0]\n  table = None\n  for child in ax.get_children():\n    if isinstance(child, Table):\n      table = child\n      break\n  for (row, col), cell in table.get_celld().items():\n    cell_text = cell.get_text().get_text()\n    cell_text = cell_text.replace(\"\\n\", \" \").strip()\n    if cell_text in finish:\n      cell.set_facecolor(\"#BD4E58\")\n      cell.get_text().set_weight(\"bold\")\n  fig.canvas.draw_idle()\n  return fig\n\n\nrandom.seed(655321)\n\nlst = read_input('bingo.txt')\nrandom.shuffle(lst)\n\nfig = generate_bingo(lst)\n\n# Update\nfinish = []\nif len(finish) &gt; 0: \n  fig = update_bingo(fig, finish)\n\nplt.show()"
+  },
+  {
+    "objectID": "advent_of_code/posts/2024.html",
+    "href": "advent_of_code/posts/2024.html",
+    "title": "Day 1 - 2025 (Test)",
+    "section": "",
+    "text": "Lorem Ipsum"
+  }
+]

@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en-us"><head>
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-fc8d3d93f0a84b7619e1f8ff6eb63d42.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-6a2c4b793c0becaeb94cc5bf146c1484.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light"><meta charset="UTF-8">
+  <title>h_esc | art</title>
+  <style>
+    body {
+      background-color: #faf9f4;
+      font-family: 'Cormorant Garamond', serif;
+      margin: 0;
+      padding: 0;
+      color: #333;
+    }
+
+    header {
+      text-align: center;
+      padding: 2rem 1rem 1rem 1rem;
+      font-size: 3rem;
+      font-weight: 600;
+      letter-spacing: 0.05rem;
+    }
+
+    /* --- GALERIE --- */
+    .gallery {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 2rem;
+      padding: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .gallery-item {
+      width: 30%; 
+      background: #fff;
+      border-radius: 10px;
+      overflow: hidden;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      text-align: justify;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .gallery-item:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 22px rgba(0,0,0,0.15);
+    }
+
+    .gallery-item img {
+      width: 100%;
+      display: block;
+      aspect-ratio: 4 / 3;
+      object-fit: cover;
+    }
+
+    /* --- LÉGENDE SOIGNÉE --- */
+    .gallery-caption {
+      padding: 1rem;
+      font-size: 1.1rem;
+      line-height: 1.4;
+      background: #fff;
+    }
+
+    .gallery-caption .title {
+      font-weight: 600;
+      font-size: 1.3rem;
+      margin-bottom: 0.3rem;
+      letter-spacing: 0.03rem;
+    }
+
+    .gallery-caption .date {
+      font-style: italic;
+      color: #777;
+      font-size: 0.95rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .gallery-caption .desc {
+      font-size: 1rem;
+      color: #444;
+    }
+
+    /* --- LIGHTBOX --- */
+    .lightbox {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.85);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      backdrop-filter: blur(6px);
+      padding: 2rem;
+    }
+
+    .lightbox-content {
+      display: flex;
+      flex-direction: row;
+      background: #fff;
+      border-radius: 12px;
+      max-width: 1000px;
+      max-height: 90%;
+      overflow: hidden;
+      box-shadow: 0 6px 24px rgba(0,0,0,0.4);
+      position: relative;
+    }
+
+    .lightbox-content img {
+      width: 60%;
+      height: auto;
+      display: block;
+      object-fit: contain;
+      background: #f8f8f8;
+    }
+
+    .lightbox-info {
+      width: 40%;
+      padding: 2rem;
+      text-align: justify;
+      overflow-y: auto;
+      font-size: 1rem;
+      font-family: 'Poppins', sans-serif;
+      color: #333;
+    }
+
+    .lightbox-info h2 {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+    }
+
+    .lightbox-info .date {
+      color: #888;
+      font-size: 0.95rem;
+      margin-bottom: 1rem;
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: 12px;
+      right: 16px;
+      cursor: pointer;
+      font-size: 2rem;
+      color: #222;
+      font-weight: bold;
+      z-index: 1100;
+    }
+
+    
+    footer {
+      text-align: center;
+      padding: 2rem;
+      font-size: 1rem;
+      color: #666;
+      font-family: 'Cormorant Garamond', serif;
+    }
+
+    footer .links {
+      margin-top: 1rem;
+      display: flex;
+      justify-content: center;
+      gap: 1.7rem;
+    }
+
+    footer a {
+      color: #666;
+      text-decoration: none;
+      transition: color 0.2s;
+      display: inline-flex;
+      align-items: center;
+    }
+
+    footer a:hover {
+      color: #111;
+    }
+
+    footer svg {
+      width: 24px;
+      height: 24px;
+    }
+
+    /* --- Responsive --- */
+    @media (max-width: 900px) {
+      .gallery-item {
+        width: 45%;
+      }
+
+      .lightbox-content {
+        flex-direction: column;
+      }
+
+      .lightbox-content img {
+        width: 100%;
+      }
+
+      .lightbox-info {
+        width: 100%;
+        padding: 1.5rem;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .gallery-item {
+        width: 90%;
+      }
+    }
+  </style>
+</head>
+
+<body class="quarto-light">
+  <header>
+    Art
+  </header>
+
+  <main><header id="title-block-header" class="quarto-title-block"></header>
+    <div class="gallery">
+      <div class="gallery-item" data-title="Character for LUX:Ploration comics" data-date="2025" data-description="Sketches of character for the story 'Gutham: A malignant story' in LUX:Ploration 4.">
+      <p><img src="../assets/art_section/luxploration_character.png" alt="Character design for LUX:Ploration comics"></p>
+      </div>
+      
+      
+    </div>
+  </main>
+
+  <!-- LIGHTBOX -->
+  <div class="lightbox" id="lightbox">
+    <div class="lightbox-content">
+      <div class="lightbox-close" onclick="closeLightbox()">×</div>
+      <img id="lightbox-img" src="" alt="Artwork">
+      <div class="lightbox-info" id="lightbox-info">
+        <h2 id="lightbox-title"></h2>
+        <div class="date" id="lightbox-date"></div>
+        <div id="lightbox-description"></div>
+      </div>
+    </div>
+  </div>
+
+
+ <footer>
+    <div class="links">
+      <a href="../" title="Home">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7"></path><path d="M9 22V12h6v10"></path></svg>
+      </a>
+      <a href="https://github.com/h-escoffier" target="_blank" title="GitHub">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-github"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+      </a>
+      <a href="https://x.com/hugues_esc" target="_blank" title="Twitter">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-twitter"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg>
+      </a>
+      <a href="https://www.twitch.tv/tryptophane_" target="_blank" title="Twitch">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-twitch"><path d="M21 2H3v16h5v4l4-4h5l4-4V2zm-10 9V7m5 4V7"></path></svg>
+      </a>
+    </div>
+  </footer>
+
+  <script>
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+    const lightboxTitle = document.getElementById('lightbox-title');
+    const lightboxDate = document.getElementById('lightbox-date');
+    const lightboxDescription = document.getElementById('lightbox-description');
+
+    document.querySelectorAll('.gallery-item').forEach(item => {
+      item.addEventListener('click', () => {
+        const img = item.querySelector('img');
+        lightboxImg.src = img.src;
+        lightboxTitle.textContent = item.dataset.title || '';
+        lightboxDate.textContent = item.dataset.date || '';
+        lightboxDescription.textContent = item.dataset.description || '';
+        lightbox.style.display = 'flex';
+      });
+    });
+
+    function closeLightbox() {
+      lightbox.style.display = 'none';
+    }
+  </script>
+
+
+</body></html>
