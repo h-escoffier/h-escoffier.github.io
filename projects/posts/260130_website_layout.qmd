@@ -1,0 +1,14 @@
+---
+title: "Website Layout"
+description: "Moodboard of my blog"
+date: "13/01/2026"
+categories:
+  - Layout
+  - CSS 
+  - Art
+---
+
+In order to successfully give it a visual direction (I wouldn't go so far as to say artistic), I have collected several references that I like and would eventually like to incorporate into this blog to give it a more personal touch than the basic Quarto theme, which I unfortunately find rather impersonal. 
+
+My primary reference is the film [Escape from the 21st Century](https://www.imdb.com/fr/title/tt7171442/). I was particularly impressed by the framing and transitions when I watched it, and I thought it would work very well for my home page. I even think that if my skills allow it, integrating transitions between pages would be very beautiful. 
+

@@ -7,18 +7,18 @@
     "text": "This section is dedicated to my solutions, tips and learnings from participating in Advent of Code.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nDay 1 - 2025 (Test)\n\n\n\nCode\n\n2025\n\n\n\nLorem Ipsum\n\n\n\n\n\nDec 11, 2026\n\n\nHugues Esc_\n\n\n\n\n\nNo matching items"
   },
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Hugues Escoffier",
-    "section": "",
-    "text": "Hugues Escoffier\n\n  \n    MD-PhD student at the University of Luxembourg. \n    This space is a collection of my projects, thoughts, and artistic experiments."
-  },
-  {
     "objectID": "projects/index.html",
     "href": "projects/index.html",
     "title": "Projects",
     "section": "",
-    "text": "BINGO\n\n\n\nCode\n\nPython\n\n2026\n\n\n\nAlternative to New Year’s resolutions\n\n\n\n\n\nJan 1, 2027\n\n\n\n\n\nNo matching items"
+    "text": "Website Layout\n\n\n\nLayout\n\nCSS\n\nArt\n\n\n\nMoodboard of my blog\n\n\n\n\n\nJan 1, 2027\n\n\n\n\n\n\n\n\n\n\n\n\nBINGO\n\n\n\nCode\n\nPython\n\n2026\n\n\n\nAlternative to New Year’s resolutions\n\n\n\n\n\nJan 1, 2027\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "projects/posts/260130_website_layout.html",
+    "href": "projects/posts/260130_website_layout.html",
+    "title": "Website Layout",
+    "section": "",
+    "text": "In order to successfully give it a visual direction (I wouldn’t go so far as to say artistic), I have collected several references that I like and would eventually like to incorporate into this blog to give it a more personal touch than the basic Quarto theme, which I unfortunately find rather impersonal.\nMy primary reference is the film Escape from the 21st Century. I was particularly impressed by the framing and transitions when I watched it, and I thought it would work very well for my home page. I even think that if my skills allow it, integrating transitions between pages would be very beautiful."
   },
   {
     "objectID": "projects/posts/260106_bingo.html",

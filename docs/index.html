@@ -18,206 +18,116 @@
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="site_libs/bootstrap/bootstrap-6a2c4b793c0becaeb94cc5bf146c1484.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light"><meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>h_esc | homepage</title>
-
-  <!-- Google Font -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&amp;display=swap" rel="stylesheet">
+  <link href="assets/css/home.css" rel="stylesheet">
 
   <style>
-    :root {
-      --bg: #ffffff;
-      --text: #111111;
-      --muted: #666666;
-      --accent: #002FA7;
-      --font: 'Poppins', sans-serif;
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
 
     body {
-      margin: 0;
-      background: var(--bg);
-      color: var(--text);
-      font-family: var(--font);
-      scroll-behavior: smooth;
-    }
-
-    /* Header */
-    header {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      background: rgba(255, 255, 255, 0.95);
-      border-bottom: 1px solid #e0e0e0;
-      /* box-shadow: 0 0 8px rgba(0,0,0,0.1); */
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1rem 2rem;
-      z-index: 10;
-    }
-
-    header .logo {
-      font-weight: 700;
-      font-size: 1.3rem;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-
-    nav ul {
-      list-style: none;
-      display: flex;
-      gap: 1.5rem;
-      margin: 0;
-      padding: 0;
-    }
-
-    nav a {
-      text-decoration: none;
-      color: var(--text);
-      font-weight: 500;
-      position: relative;
-    }
-
-    nav a::after {
-      content: "";
-      position: absolute;
-      left: 0;
-      bottom: -4px;
-      width: 0;
-      height: 2px;
-      background: var(--accent);
-      transition: width 0.3s ease;
-    }
-
-    nav a:hover::after {
-      width: 100%;
-    }
-
-    /* Main content */
-    main {
-      padding-top: 100px; 
-      min-height: 90vh;
+      background-color: #000;
+      color: #ccc;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      height: 100vh;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      text-align: center;
-      padding-top: 6rem;
     }
 
-    img.profile {
-      width: 200px;
-      height: 200px;
-      border-radius: 50%;
-      object-fit: cover;
-      box-shadow: 0 4px 30px rgba(0,0,0,0.1);
-      margin-bottom: 1.5rem;
-      opacity: 0;
-      transform: translateY(20px);
-      animation: fadeUp 0.8s ease-out forwards;
-    }
-
-    h1 {
-      font-size: 6rem;
-      font-weight: 800;
-      margin: 0.5rem 0;
-      animation: fadeUp 1s ease-out forwards;
-      color: #002FA7;
-    }
-
-    p.subtitle {
-      font-size: 1.2rem;
-      color: var(--muted);
+    .main-rectangle {
+      width: 60vw;
       max-width: 600px;
-      margin: 1rem auto 0;
-      line-height: 1.6;
-      animation: fadeUp 1.3s ease-out forwards;
-    }
-
-    footer {
+      height: 25vh;
+      min-height: 400px;
+      background-color: #111;
+      border-radius: 25px;
+      transition: background-color 0.4s ease;
       display: flex;
-      flex-direction: column;
       align-items: center;
       justify-content: center;
-      text-align: center;
-      padding: 0.5rem;
-      color: var(--muted);
-      border-top: 1px solid #eee;
-      font-size: 0.5rem;
+      margin-bottom: 20px;
+      box-shadow: 0 0 30px rgba(255, 255, 255, 0.05);
+      position: relative;
+      overflow: hidden;
     }
 
-    footer .links {
-      margin-top: 0.5rem;
-      margin-bottom: 0.5rem;
+    .main-rectangle span {
+      color: #161616;
+      font-size: 0.9rem;
+      letter-spacing: 0.08em;
+    }
+
+    /* Navigation */
+    .nav-links {
       display: flex;
+      gap: 100px;
+      flex-wrap: wrap;
       justify-content: center;
-      align-items: center; 
-      gap: 2rem;
     }
 
-    footer a {
-      color: #666;
+    .nav-links a {
       text-decoration: none;
-      transition: color 0.2s, transform 0.2s;
-      display: flex;             
-      align-items: center;        
-      justify-content: center;    
-      vertical-align: middle;     
+      color: #424242;
+      font-size: 1rem;
+      letter-spacing: 0.05em;
+      transition: color 0.3s ease;
     }
 
-    footer svg {
-      width: 24px;
-      height: 24px;
+    .nav-links a:hover {
+      color: #aaa;
     }
 
-    footer a:hover {
-      color: #111;
-    }
+    /* Responsive */
+    @media (max-width: 768px) {
+      .main-rectangle {
+        width: 85vw;
+        height: 22vh;
+      }
 
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
+      .nav-links {
+        gap: 20px;
+      }
     }
   </style>
 </head>
 
 <body class="quarto-light">
-  <header>
-    <div class="logo">personal blog</div>
-    <nav>
-      <ul>
-        <li><a href="./projects/">Projects</a></li>
-        <li><a href="./reflect/">Reflect</a></li>
-        <li><a href="./art/">Art</a></li>
-        <li><a href="./advent_of_code/">Advent of Code</a></li>
-      </ul>
-    </nav>
-  </header>
 
-  <main><header id="title-block-header" class="quarto-title-block"></header>
-  
-  <img src="./assets/profile_picture.tif" alt="Profile picture" class="profile">
-  <h1>Hugues Escoffier</h1>
+  <div class="main-rectangle" id="displayBox">
+    
+  </div>
 
-  <p class="subtitle">
-    MD-PhD student at the University of Luxembourg. <br>
-    This space is a collection of my projects, thoughts, and artistic experiments.
-  </p>
-</main>
+  <nav class="nav-links">
+    <a href="projects/index.html" data-color="#1f2a38">Projects</a>
+    <a href="reflect/index.html" data-color="#2a1f38">Reflect</a>
+    <a href="art/index.html" data-color="#382a1f">Art</a>
+    <a href="advent_of_code/index.html" data-color="#1f382a">Advent of Code</a>
+  </nav>
 
- <footer>
-    <div class="links">
-      <a href="https://github.com/h-escoffier" target="_blank" title="GitHub">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-github"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
-      </a>
-      <a href="https://x.com/hugues_esc" target="_blank" title="Twitter">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-twitter"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg>
-      </a>
-      <a href="https://www.twitch.tv/tryptophane_" target="_blank" title="Twitch">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-twitch"><path d="M21 2H3v16h5v4l4-4h5l4-4V2zm-10 9V7m5 4V7"></path></svg>
-      </a>
-    </div>
-  </footer>
+  <script>
+      const box = document.getElementById("displayBox");
+      const links = document.querySelectorAll(".nav-links a");
+      const defaultColor = "#111";
+
+      links.forEach(link => {
+        link.addEventListener("mouseenter", () => {
+          const newColor = link.getAttribute("data-color");
+          box.style.backgroundColor = newColor;
+        });
+      });
+
+      // Pour que la couleur reste jusqu'à survol d'un autre lien
+      links.forEach(link => {
+        link.addEventListener("click", (e) => e.preventDefault());
+      });
+    </script>
+
+
 
 </body></html>
