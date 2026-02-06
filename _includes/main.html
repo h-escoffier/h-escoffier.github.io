@@ -1,116 +1,198 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>h_esc | homepage</title>
-  <link href="assets/css/home.css" rel="stylesheet" />
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>h_esc | homepage</title>
 
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
 
-    body {
-      background-color: #000;
-      color: #ccc;
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-    }
+body {
+  background:#000;
+  color:#ccc;
+  font-family:system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  height:100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  overflow:hidden;
+}
 
-    .main-rectangle {
-      width: 60vw;
-      max-width: 600px;
-      height: 25vh;
-      min-height: 400px;
-      background-color: #111;
-      border-radius: 25px;
-      transition: background-color 0.4s ease;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 20px;
-      box-shadow: 0 0 30px rgba(255, 255, 255, 0.05);
-      position: relative;
-      overflow: hidden;
-    }
+.main-rectangle {
+  width:60vw;
+  max-width:600px;
+  height:25vh;
+  min-height:400px;
+  background:#111;
+  border-radius:25px;
+  position:relative;
+  overflow:hidden;
+  box-shadow:0 0 30px rgba(255,255,255,0.05);
+  margin-bottom:20px;
+}
 
-    .main-rectangle span {
-      color: #161616;
-      font-size: 0.9rem;
-      letter-spacing: 0.08em;
-    }
+canvas {
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+}
 
-    /* Navigation */
-    .nav-links {
-      display: flex;
-      gap: 100px;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
+.hero {
+  position:relative;
+  z-index:2;
+  height:100%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:white;
+  text-shadow:0 0 20px rgba(0,0,0,0.9);
+  pointer-events:none;
+}
 
-    .nav-links a {
-      text-decoration: none;
-      color: #424242;
-      font-size: 1rem;
-      letter-spacing: 0.05em;
-      transition: color 0.3s ease;
-    }
+.hero h1 {
+  font-size:clamp(32px,6vw,64px);
+  letter-spacing:0.1em;
+}
 
-    .nav-links a:hover {
-      color: #aaa;
-    }
+.nav-links {
+  display:flex;
+  gap:100px;
+  flex-wrap:wrap;
+  justify-content:center;
+}
 
-    /* Responsive */
-    @media (max-width: 768px) {
-      .main-rectangle {
-        width: 85vw;
-        height: 22vh;
-      }
+.nav-links a {
+  text-decoration:none;
+  color:#424242;
+  font-size:1rem;
+  letter-spacing:0.05em;
+  transition:color 0.3s ease;
+}
 
-      .nav-links {
-        gap: 20px;
-      }
-    }
-  </style>
+.nav-links a:hover { color:#aaa; }
+
+@media (max-width:768px){
+  .main-rectangle { width:85vw; height:22vh; }
+  .nav-links { gap:20px; }
+}
+</style>
 </head>
 
 <body>
 
-  <div class="main-rectangle" id="displayBox">
-    
-  </div>
+<div class="main-rectangle">
+  <canvas id="bgCanvas"></canvas>
+  <div class="hero"><h1></h1></div>
+</div>
 
-  <nav class="nav-links">
-    <a href="projects/index.html" data-color="#1f2a38">Projects</a>
-    <a href="reflect/index.html" data-color="#2a1f38">Reflect</a>
-    <a href="art/index.html" data-color="#382a1f">Art</a>
-    <a href="advent_of_code/index.html" data-color="#1f382a">Advent of Code</a>
-  </nav>
+<nav class="nav-links">
+  <a href="projects/index.html" data-effect="grid">Projects</a>
+  <a href="reflect/index.html" data-effect="waves">Reflect</a>
+  <a href="art/index.html" data-effect="particles">Art</a>
+  <a href="advent_of_code/index.html" data-effect="tunnel">Advent of Code</a>
+</nav>
 
-  <script>
-      const box = document.getElementById("displayBox");
-      const links = document.querySelectorAll(".nav-links a");
-      const defaultColor = "#111";
+<!-- {% raw %} -->
+<script>
+window.addEventListener("load", function() {
+  const canvas = document.getElementById("bgCanvas")
+  const ctx = canvas.getContext("2d")
+  const links = document.querySelectorAll(".nav-links a")
+  const nav = document.querySelector(".nav-links")
 
-      links.forEach(link => {
-        link.addEventListener("mouseenter", () => {
-          const newColor = link.getAttribute("data-color");
-          box.style.backgroundColor = newColor;
-        });
-      });
+  let W, H, particles = [], effect = "tunnel", t = 0
 
-      // Pour que la couleur reste jusqu'à survol d'un autre lien
-      links.forEach(link => {
-        link.addEventListener("click", (e) => e.preventDefault());
-      });
-    </script>
+  function resize() {
+    W = canvas.width = canvas.offsetWidth
+    H = canvas.height = canvas.offsetHeight
+  }
+  window.addEventListener("resize", resize)
+  resize()
+
+  function createParticles(n){
+    n = n || 120
+    particles = []
+    for(let i=0;i<n;i++){
+      particles.push({
+        x:Math.random()*W,
+        y:Math.random()*H,
+        r:Math.random()*2+0.5,
+        vx:(Math.random()-0.5)*0.5,
+        vy:(Math.random()-0.5)*0.5
+      })
+    }
+  }
+  createParticles()
+
+  function drawParticles(){
+    ctx.fillStyle="rgba(255,255,255,0.7)"
+    particles.forEach(p=>{
+      ctx.beginPath()
+      ctx.arc(p.x,p.y,p.r,0,Math.PI*2)
+      ctx.fill()
+      p.x+=p.vx; p.y+=p.vy
+      if(p.x<0||p.x>W) p.vx*=-1
+      if(p.y<0||p.y>H) p.vy*=-1
+    })
+  }
+
+  function drawGrid(){
+    ctx.strokeStyle="rgba(255,255,255,0.08)"
+    const size=40
+    for(let x=0;x<W;x+=size){
+      for(let y=0;y<H;y+=size){
+        const offset=Math.sin((x+y+t)*0.01)*10
+        ctx.strokeRect(x,y+offset,size,size)
+      }
+    }
+  }
+
+  function drawWaves(){
+    ctx.strokeStyle="rgba(255,255,255,0.2)"
+    for(let y=0;y<10;y++){
+      ctx.beginPath()
+      for(let x=0;x<W;x++){
+        const wave=Math.sin(x*0.02+t+y)*10
+        ctx.lineTo(x,H/2 + wave + y*10)
+      }
+      ctx.stroke()
+    }
+  }
+
+  function drawTunnel(){
+    for(let i=0;i<40;i++){
+      const r = i*20 + (t%20)
+      ctx.strokeStyle="rgba(255,255,255," + (1-i/40) + ")"
+      ctx.beginPath()
+      ctx.arc(W/2,H/2,r,0,Math.PI*2)
+      ctx.stroke()
+    }
+  }
+
+  function animate(){
+    ctx.clearRect(0,0,W,H)
+    t+=1
+    if(effect==="particles") drawParticles()
+    if(effect==="grid") drawGrid()
+    if(effect==="waves") drawWaves()
+    if(effect==="tunnel") drawTunnel()
+    requestAnimationFrame(animate)
+  }
+  animate()
+
+  links.forEach(link=>{
+    link.addEventListener("mouseenter",()=>{
+      effect = link.dataset.effect
+      if(effect==="particles") createParticles()
+    })
+  })
+
+})
+</script>
+<!-- {% endraw %} -->
 
 </body>
 </html>
