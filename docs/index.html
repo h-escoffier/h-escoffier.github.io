@@ -47,30 +47,18 @@ body {
   overflow:hidden;
   box-shadow:0 0 30px rgba(255,255,255,0.05);
   margin-bottom:20px;
+
+  /* GIF background */
+  background-size:cover;
+  background-position:center;
+  background-repeat:no-repeat;
 }
 
-canvas {
+.main-rectangle::after {
+  content:"";
   position:absolute;
   inset:0;
-  width:100%;
-  height:100%;
-}
-
-.hero {
-  position:relative;
-  z-index:2;
-  height:100%;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  color:white;
-  text-shadow:0 0 20px rgba(0,0,0,0.9);
-  pointer-events:none;
-}
-
-.hero h1 {
-  font-size:clamp(32px,6vw,64px);
-  letter-spacing:0.1em;
+  background:rgba(0,0,0,0.3);
 }
 
 .nav-links {
@@ -99,118 +87,34 @@ canvas {
 
 <body class="quarto-light">
 
-<div class="main-rectangle">
-  <canvas id="bgCanvas"></canvas>
-  <div class="hero"><h1></h1></div>
+<div class="main-rectangle" id="mainRectangle">
+  <!-- <div class="hero"><h1>h_esc</h1></div> -->
 </div>
 
 <nav class="nav-links">
-  <a href="projects/index.html" data-effect="grid">Projects</a>
-  <a href="reflect/index.html" data-effect="waves">Reflect</a>
-  <a href="art/index.html" data-effect="particles">Art</a>
-  <a href="advent_of_code/index.html" data-effect="tunnel">Advent of Code</a>
+  <a href="projects/index.html" data-gif="../assets/main_section/ghost.gif">Projects</a>
+  <a href="reflect/index.html" data-gif="../assets/main_section/tetsuo.gif">Reflect</a>
+  <a href="art/index.html" data-gif="../assets/main_section/escape.gif">Art</a>
+  <a href="advent_of_code/index.html" data-gif="../assets/main_section/goodfellas.gif">Advent of Code</a>
 </nav>
 
-<!-- {% raw %} -->
 <script>
 window.addEventListener("load", function() {
-  const canvas = document.getElementById("bgCanvas")
-  const ctx = canvas.getContext("2d")
+
+  const rectangle = document.getElementById("mainRectangle")
   const links = document.querySelectorAll(".nav-links a")
-  const nav = document.querySelector(".nav-links")
 
-  let W, H, particles = [], effect = "tunnel", t = 0
+  rectangle.style.backgroundImage = "url('../assets/main_section/shinning.gif')"
 
-  function resize() {
-    W = canvas.width = canvas.offsetWidth
-    H = canvas.height = canvas.offsetHeight
-  }
-  window.addEventListener("resize", resize)
-  resize()
-
-  function createParticles(n){
-    n = n || 120
-    particles = []
-    for(let i=0;i<n;i++){
-      particles.push({
-        x:Math.random()*W,
-        y:Math.random()*H,
-        r:Math.random()*2+0.5,
-        vx:(Math.random()-0.5)*0.5,
-        vy:(Math.random()-0.5)*0.5
-      })
-    }
-  }
-  createParticles()
-
-  function drawParticles(){
-    ctx.fillStyle="rgba(255,255,255,0.7)"
-    particles.forEach(p=>{
-      ctx.beginPath()
-      ctx.arc(p.x,p.y,p.r,0,Math.PI*2)
-      ctx.fill()
-      p.x+=p.vx; p.y+=p.vy
-      if(p.x<0||p.x>W) p.vx*=-1
-      if(p.y<0||p.y>H) p.vy*=-1
-    })
-  }
-
-  function drawGrid(){
-    ctx.strokeStyle="rgba(255,255,255,0.08)"
-    const size=40
-    for(let x=0;x<W;x+=size){
-      for(let y=0;y<H;y+=size){
-        const offset=Math.sin((x+y+t)*0.01)*10
-        ctx.strokeRect(x,y+offset,size,size)
-      }
-    }
-  }
-
-  function drawWaves(){
-    ctx.strokeStyle="rgba(255,255,255,0.2)"
-    for(let y=0;y<10;y++){
-      ctx.beginPath()
-      for(let x=0;x<W;x++){
-        const wave=Math.sin(x*0.02+t+y)*10
-        ctx.lineTo(x,H/2 + wave + y*10)
-      }
-      ctx.stroke()
-    }
-  }
-
-  function drawTunnel(){
-    for(let i=0;i<40;i++){
-      const r = i*20 + (t%20)
-      ctx.strokeStyle="rgba(255,255,255," + (1-i/40) + ")"
-      ctx.beginPath()
-      ctx.arc(W/2,H/2,r,0,Math.PI*2)
-      ctx.stroke()
-    }
-  }
-
-  function animate(){
-    ctx.clearRect(0,0,W,H)
-    t+=1
-    if(effect==="particles") drawParticles()
-    if(effect==="grid") drawGrid()
-    if(effect==="waves") drawWaves()
-    if(effect==="tunnel") drawTunnel()
-    requestAnimationFrame(animate)
-  }
-  animate()
-
-  links.forEach(link=>{
-    link.addEventListener("mouseenter",()=>{
-      effect = link.dataset.effect
-      if(effect==="particles") createParticles()
+  links.forEach(link => {
+    link.addEventListener("mouseenter", () => {
+      const gif = link.dataset.gif
+      rectangle.style.backgroundImage = "url('" + gif + "')"
     })
   })
 
-  nav.addEventListener("mouseleave",()=> effect="tunnel")
 })
 </script>
-<!-- {% endraw %} -->
-
 
 
 </body></html>
