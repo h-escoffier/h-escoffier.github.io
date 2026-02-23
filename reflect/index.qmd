@@ -1,0 +1,8 @@
+---
+title: h_esc | reflect
+format:
+  html:
+    standalone: true
+    page-layout: full
+    template: ../_includes/reflect.html
+---

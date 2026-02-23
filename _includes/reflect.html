@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>h_esc | reflect</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@300;400&display=swap" rel="stylesheet">
+
+<style>
+/* reset + remove browser margins */
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: #000;
+  color: #aaa;
+  font-family: "Source Code Pro", monospace;
+}
+
+/* true top-left */
+.container {
+  padding: 15px 20px;
+  max-width: 700px;
+}
+
+/* header */
+.header {
+  margin-bottom: 12px;
+  color: #666;
+  letter-spacing: 2px;
+}
+
+/* compact logs */
+.log {
+  display: block;
+  text-decoration: none;
+  color: #888;
+  padding: 2px 0;
+  font-size: 0.9rem;
+}
+
+.log:hover {
+  color: #fff;
+}
+
+/* cursor */
+.cursor::after {
+  content: "_";
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  0%,100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.meta {
+  color: #444;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <div class="header cursor">
+    h_esc | reflect
+  </div>
+
+  <a href="posts/log1.qmd" class="log">
+    <span class="meta">log1 - 13/01/2026 - </span>bingo
+  </a>
+
+</div>
+
+</body>
+</html>

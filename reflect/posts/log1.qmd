@@ -108,7 +108,7 @@ def update_bingo(fig, finish):
 
 random.seed(655321)
 
-lst = read_input('bingo.txt')
+lst = read_input('log1/bingo.txt')
 random.shuffle(lst)
 
 fig = generate_bingo(lst)
