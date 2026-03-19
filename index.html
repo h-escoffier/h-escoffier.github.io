@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-fc8d3d93f0a84b7619e1f8ff6eb63d42.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-6a2c4b793c0becaeb94cc5bf146c1484.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light"><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>h_esc | home</title>
+
+<!-- Font -->
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500&amp;display=swap" rel="stylesheet">
+
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  background:#000;
+  color:#ccc;
+  font-family:"Jost", system-ui, sans-serif;
+  height:100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  overflow:hidden;
+}
+
+.main-rectangle {
+  width:60vw;
+  max-width:600px;
+  height:25vh;
+  min-height:400px;
+  background:#111;
+  border-radius:25px;
+  position:relative;
+  overflow:hidden;
+  box-shadow:0 0 30px rgba(255,255,255,0.05);
+  margin-bottom:10px;
+
+  background-size:cover;
+  background-position:center;
+  background-repeat:no-repeat;
+}
+
+.main-rectangle::after {
+  content:"";
+  position:absolute;
+  inset:0;
+  background:rgba(0,0,0,0.3);
+}
+
+.nav-links {
+  display:flex;
+  gap:100px;
+  flex-wrap:wrap;
+  justify-content:center;
+}
+
+.nav-links a {
+  text-decoration:none;
+  color:#424242;
+  font-size:1rem;
+  letter-spacing:0.05em;
+}
+
+.nav-links a:hover { color:#aaa; }
+
+@media (max-width:768px){
+  .main-rectangle { width:85vw; height:22vh; }
+  .nav-links { gap:20px; }
+}
+</style>
+</head>
+
+<body class="quarto-light">
+
+<div class="main-rectangle" id="mainRectangle">
+  <!-- <div class="hero"><h1>h_esc</h1></div> -->
+</div>
+
+<nav class="nav-links">
+  <a href="projects/index.html" data-gif="assets/main_section/ghost.gif">Projects</a>
+  <a href="reflect/index.html" data-gif="assets/main_section/tetsuo.gif">Reflect</a>
+  <a href="art/index.html" data-gif="assets/main_section/escape.gif">Art</a>
+  <a href="advent_of_code/index.html" data-gif="assets/main_section/goodfellas.gif">Advent of Code</a>
+</nav>
+
+<script>
+window.addEventListener("load", function() {
+
+  const rectangle = document.getElementById("mainRectangle")
+  const links = document.querySelectorAll(".nav-links a")
+
+  rectangle.style.backgroundImage = "url('assets/main_section/shinning.gif')"
+
+  links.forEach(link => {
+    link.addEventListener("mouseenter", () => {
+      const gif = link.dataset.gif
+      rectangle.style.backgroundImage = "url('" + gif + "')"
+    })
+  })
+
+})
+</script>
+
+
+</body></html>
