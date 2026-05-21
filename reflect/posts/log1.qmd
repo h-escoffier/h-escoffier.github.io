@@ -114,7 +114,7 @@ random.shuffle(lst)
 fig = generate_bingo(lst)
 
 # Update
-finish = ['Meet Nicolas']
+finish = ['Meet Nicolas', 'Open an investment account', 'Get my driving license']
 if len(finish) > 0: 
   fig = update_bingo(fig, finish)
 

@@ -2,30 +2,34 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://h-escoffier.github.io/advent_of_code/index.html</loc>
-    <lastmod>2026-01-06T16:59:17.094Z</lastmod>
+    <lastmod>2026-03-19T06:54:33.771Z</lastmod>
   </url>
   <url>
     <loc>https://h-escoffier.github.io/index.html</loc>
-    <lastmod>2025-11-24T17:35:31.599Z</lastmod>
+    <lastmod>2026-05-21T09:01:59.176Z</lastmod>
   </url>
   <url>
     <loc>https://h-escoffier.github.io/reflect/posts/log1.html</loc>
-    <lastmod>2026-02-23T21:11:36.920Z</lastmod>
+    <lastmod>2026-05-21T09:03:50.186Z</lastmod>
+  </url>
+  <url>
+    <loc>https://h-escoffier.github.io/projects/posts/pred_vs_exp_in_yeast.html</loc>
+    <lastmod>2026-03-18T13:39:55.685Z</lastmod>
   </url>
   <url>
     <loc>https://h-escoffier.github.io/art/index.html</loc>
-    <lastmod>2025-11-24T17:01:46.171Z</lastmod>
+    <lastmod>2026-03-19T06:54:33.772Z</lastmod>
   </url>
   <url>
     <loc>https://h-escoffier.github.io/projects/index.html</loc>
-    <lastmod>2026-01-06T17:12:46.642Z</lastmod>
+    <lastmod>2026-03-19T06:54:35.027Z</lastmod>
   </url>
   <url>
     <loc>https://h-escoffier.github.io/reflect/index.html</loc>
-    <lastmod>2026-02-23T20:59:24.418Z</lastmod>
+    <lastmod>2026-03-19T06:54:35.028Z</lastmod>
   </url>
   <url>
     <loc>https://h-escoffier.github.io/advent_of_code/posts/2024.html</loc>
-    <lastmod>2025-11-24T17:36:30.661Z</lastmod>
+    <lastmod>2026-03-19T06:54:33.771Z</lastmod>
   </url>
 </urlset>
