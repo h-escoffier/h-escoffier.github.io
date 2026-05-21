@@ -10,8 +10,7 @@
 // content.style.weight = "100px";
 // container.appendChild(content);
 
-let rows = 100
-let cols = 150
+let pixelSize = 10
 let keep = 'No'
 
 const settingBtn = document.getElementById("settings")
@@ -26,59 +25,87 @@ const container = document.querySelector("#container");
 
 function rendergrid(keep) {
     container.innerHTML = ""; // reset grid
-    rows = Number(rows);
-    cols = Number(cols);
-    container.style.display = "grid";
-    // container.style.gridTemplateColumns = `repeat(${cols}, 100px)`;
-    container.style.gridTemplateColumns = `repeat(${cols}, minmax(0, 1fr))`;
-    container.style.gridTemplateRows = `repeat(${rows}, minmax(0, 1fr))`;
-    // container.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
-    // container.style.gridTemplateRows = `repeat(${rows}, 1fr)`;
+    
+    container.style.gridTemplateColumns = `repeat(auto-fill, ${pixelSize}px)`;
+    container.style.gridAutoRows = `${pixelSize}px`;
     container.style.gap = "0px";
+    
+    const width = window.innerWidth;
+    const height = window.innerHeight;
+
+    const cols = Math.floor(width / pixelSize);
+    const rows = Math.floor(height / pixelSize);
+    container.style.display = "grid";
 
     for (let row = 1; row <= rows; row++) {
         for (let col = 1; col <= cols; col++) {
             const cell = document.createElement("div");
             cell.classList.add("cell");
             cell.id = `cell${row}${col}`;
-            // cell.textContent = `cell${row}${col}`;
+            cell.style.width = `${pixelSize}px`;
+            cell.style.height = `${pixelSize}px`;
+            // cell.textContent = cell.id;
             container.appendChild(cell);
         }
     }
 
+    // Special keys 
+    let drawingEnabled = true;
+    let eraserMode = false;
+    let clearAll = false;
+
+   document.addEventListener("keydown", (e) => {
+        if (e.code === "KeyS") {
+            drawingEnabled = false;
+        }
+        if (e.code === "KeyC") {
+            document.querySelectorAll(".cell").forEach(cell => {
+                cell.style.backgroundColor = "white";
+        }) 
+        }
+        if (e.code === "KeyE") {
+            eraserMode = true;
+        }
+    });
+
+    document.addEventListener("keyup", (e) => {
+        if (e.code === "KeyS") {
+            drawingEnabled = true;
+        }
+        else if (e.code === "KeyC") {
+            clearAll = false;
+        }
+        else if (e.code === "KeyE") {
+            eraserMode = false;
+        }
+    });
+
     const cell = document.querySelectorAll(".cell")
     cell.forEach(cell => {
         document.addEventListener("mousemove", async (e) => {
+            if (!drawingEnabled) return;
             if (cell.matches(":hover")) {
                 cell.style.backgroundColor = rainbow(Math.random(), Math.random());
                 if (keep === 'Yes') {
                     await sleep(3000)
                     cell.style.backgroundColor = "white";
-                }
-            } else {
-                // cell.style.backgroundColor = "white";
+                } else if (eraserMode){
+                    cell.style.backgroundColor = "white";
+                } 
             }
-        })
+    })
     })
 }
 
 rendergrid(keep) 
+window.addEventListener("resize", () => rendergrid(20));
 
+// Functionalities
+
+// Sleep 
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
-
-// var element = document.getElementById("cell11");
-// if (element.parentNode.querySelector(":hover") == element) {
-//     element.style.backgroundColor = "red"
-// } else {
-//     element.style.backgroundColor = "white"
-// }
-
-// var test = document.getElementById('cell11');
-// test.addEventListener('mouseenter', function(){
-//     test.style.backgroundColor = "red"
-// },  test.style.backgroundColor = "white");
 
 function rainbow(numOfSteps, step) {
     // This function generates vibrant, "evenly spaced" colours (i.e. no clustering). This is ideal for creating easily distinguishable vibrant markers in Google Maps and other apps.
