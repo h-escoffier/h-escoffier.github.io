@@ -1,15 +1,4 @@
 
-// Select #container 
-// const container = document.querySelector("#container");
-// // Create grid 
-
-// const content = document.createElement("div");
-// content.classList.add("content");
-// content.style.border = "2px solid black"
-// content.style.height = "100px";
-// content.style.weight = "100px";
-// container.appendChild(content);
-
 let pixelSize = 10
 let keep = 'No'
 

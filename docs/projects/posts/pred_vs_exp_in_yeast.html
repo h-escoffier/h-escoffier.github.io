@@ -207,7 +207,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Model performance was assessed on the log10 scale using the root mean squared error (RMSE), which quantifies the average magnitude of prediction error while penalizing larger deviations more strongly.</p>
 <p>To facilitate interpretation in a biochemical context, errors were additionally expressed as fold deviations (e.g., an RMSE of 1 on the log10 scale corresponds to an approximate 10-fold error).</p>
 <p>The Pearson correlation coefficient was also computed on the log10-transformed values to evaluate the strength of the linear relationship between predicted and experimental kcat values. However, the relevance of this metric should be interpreted with caution, as the assumption of a strictly linear relationship between predicted and measured values may not be fully justified in this context.</p>
-<div id="bccc5a89" class="cell" data-execution_count="1">
+<div id="88a97f1b" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd </span>
 <span id="cb1-2"><a href="#cb1-2"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-3"><a href="#cb1-3"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
@@ -278,7 +278,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-68"><a href="#cb1-68"></a>merged_eitlem <span class="op">=</span> pd.merge(exp_sub, eitlem_sub, on<span class="op">=</span>merge_cols, how<span class="op">=</span><span class="st">"outer"</span>)</span>
 <span id="cb1-69"><a href="#cb1-69"></a>merged_unikp <span class="op">=</span> pd.merge(exp_sub, unikp_sub, on<span class="op">=</span>merge_cols, how<span class="op">=</span><span class="st">"outer"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="524a8d27" class="cell" data-execution_count="2">
+<div id="318d8216" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a><span class="co"># Dlkcat </span></span>
 <span id="cb2-2"><a href="#cb2-2"></a><span class="co"># Drop rows where one of the kcat values is missing</span></span>
 <span id="cb2-3"><a href="#cb2-3"></a>plot_df <span class="op">=</span> merged.dropna(subset<span class="op">=</span>[<span class="st">"kcat_sabio"</span>, <span class="st">"kcat_catapro"</span>])</span>
@@ -363,7 +363,7 @@ Pearson r (log10):   0.501</code></pre>
 </div>
 </div>
 </div>
-<div id="61fef5bb" class="cell" data-execution_count="3">
+<div id="64002143" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a><span class="co"># Eitlem </span></span>
 <span id="cb4-2"><a href="#cb4-2"></a><span class="co"># Drop rows where one of the kcat values is missing</span></span>
 <span id="cb4-3"><a href="#cb4-3"></a>plot_df <span class="op">=</span> merged_eitlem.dropna(subset<span class="op">=</span>[<span class="st">"kcat_sabio"</span>, <span class="st">"kcat_catapro"</span>])</span>
@@ -448,7 +448,7 @@ Pearson r (log10):   0.748</code></pre>
 </div>
 </div>
 </div>
-<div id="bb46ff92" class="cell" data-execution_count="4">
+<div id="8dc2c8fd" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1"></a><span class="co"># eitlem </span></span>
 <span id="cb6-2"><a href="#cb6-2"></a><span class="co"># Drop rows where one of the kcat values is missing</span></span>
 <span id="cb6-3"><a href="#cb6-3"></a>plot_df <span class="op">=</span> merged_unikp.dropna(subset<span class="op">=</span>[<span class="st">"kcat_sabio"</span>, <span class="st">"kcat_catapro"</span>])</span>
