@@ -1,8 +1,23 @@
 ---
-title: h_esc | summer of code
+title: "h_esc | summer of code"
+page-layout: full
+search: false
 format:
   html:
     standalone: true
-    page-layout: full
     template: ../_includes/soc.html
+    theme: none
+    highlight-style: none
+    toc: false
+    title-block-style: none
+    anchor-sections: false      
+    citations-hover: false      
+    footnotes-hover: false      
+    code-copy: false            
+    code-tools: false
+    smooth-scroll: false
+    fig-responsive: false
+    include-in-header: []
+    include-before-body: []
+    include-after-body: []
 ---
