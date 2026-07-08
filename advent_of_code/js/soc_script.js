@@ -1,5 +1,5 @@
 
-const rows = 24; 
+const rows = 25; 
 
 
 const calendar = document.querySelector("#calendar");
