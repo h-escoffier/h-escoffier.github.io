@@ -1,17 +1,18 @@
 
 const rows = 25; 
 
-
 const calendar = document.querySelector("#calendar");
 const countdowns = [];
 
-function renderCalendar() {
+function renderCalendar(leaderboard) {
   
   calendar.innerHTML = "";
   for (let row = 1; row <= rows; row++) {
 
     let problemAvailable = false;
     let targetDate;
+    let output;
+    let nb_stars;
 
     if (row <= 10) {
       targetDate = new Date(2026, 6, 19 + row, 7, 59, 59);
@@ -42,36 +43,51 @@ function renderCalendar() {
 
     const filler = document.createElement("span");
     filler.classList.add("calendar-filler");
-    filler.textContent = " ".repeat(60);
+    filler.textContent = " ".repeat(68);
 
     const dayLabel = document.createElement("span");
     dayLabel.classList.add("calendar-day");
     dayLabel.textContent = ` ${row}`;
 
-    const counter = document.createElement("span");
-    counter.classList.add("calendar-counter");
-    // updateCountdown(targetDate, counter, row);
+    if (diff > 0) {
+      output = document.createElement("span");
+      output.classList.add("calendar-counter");
+      // updateCountdown(targetDate, counter, row);
+    }
+    else {
+      output = document.createElement("span");
+      output.classList.add("calendar-stars");
+      nb_stars = checkValid(leaderboard, row)
+      output.textContent = "*".repeat(nb_stars);
+      output.style.color = "#f65c0e";
+    }
 
-    countdowns.push({
-      targetDate,
-      element: counter,
-      day: row
-    });
+    if (diff > 0) {
+      countdowns.push({
+        targetDate,
+        element: output,
+        day: row
+      });
+    }
+
+    // Drawing 
+    if (nb_stars === 1) {
+      filler.textContent = drawing[`day${row}`];
+    }
+    if (nb_stars === 2) {
+      filler.innerHTML = colorize(drawing[`day${row}`]);
+    }
 
     // const star = document.createElement("span");
     // star.classList.add("calendar-completion");
     // star.textContent = "**";
 
-    link.append(filler, " ", dayLabel, " ", counter);
+    link.append(filler, " ", dayLabel, " ", output);
     // link.append(filler, " ", dayLabel, " ", star);
     calendar.appendChild(link);
     calendar.appendChild(document.createElement("br"));
   }
 }
-
-renderCalendar()
-
-// const targetDate = new Date(2026, 11, 31, 23, 59, 59);
 
 function updateCountdowns() {
   countdowns.forEach(({ targetDate, element, day }) => {
@@ -96,9 +112,94 @@ function updateCountdowns() {
   });
 }
 
-// Update everysecond
-setInterval(updateCountdowns, 1000);
-updateCountdowns();
+let leaderboard = null;
+async function loadLeaderboard() {
+  try {
+    const res = await fetch('https://aoc-proxy.h-esc.workers.dev');
+    if (!res.ok) throw new Error(`Worker error ${res.status}`);
+    return await res.json();
+  } catch (err) {
+    console.error('Failed to load leaderboard:', err);
+    return null;
+  }
+}
+
+function checkValid(leaderboard, day) {
+  let starOne = false
+  let starTwo = false
+  if (leaderboard.members["1029538"].completion_day_level[day]?.[1] &&
+      leaderboard.members["1522078"].completion_day_level[day]?.[1] &&
+      leaderboard.members["4467264"].completion_day_level[day]?.[1]) {
+        starOne = true
+  }
+  if (leaderboard.members["1029538"].completion_day_level[day]?.[2] &&
+      leaderboard.members["1522078"].completion_day_level[day]?.[2] &&
+      leaderboard.members["4467264"].completion_day_level[day]?.[2]) {
+        starTwo = true
+  }
+  if (starOne && starTwo) {
+    return 2
+  } else if (starOne) {
+    return 1
+  } else {
+    return 0
+  }
+
+}
+
+function classify(ch) {
+  if (ch === 'a' || ch === 'A') return 'sail';
+  if (ch === '8') return 'hull';
+  if ('PYX"\''.includes(ch)) return 'hull';
+  if ('/\\|;'.includes(ch)) return 'rig';
+  if (':.,_-`='.includes(ch)) return 'water';
+  return 'default';
+}
+
+function colorize(line) {
+  return line
+    .split('')
+    .map(ch => {
+      if (ch === ' ') return ' ';
+      const cls = classify(ch);
+      // échapper les caractères HTML sensibles
+      const safe = ch === '<' ? '&lt;' : ch === '>' ? '&gt;' : ch === '&' ? '&amp;' : ch;
+      return `<span class="${cls}">${safe}</span>`;
+    })
+    .join('');
+}
+
+
+// render 
+// Update every second
+// leaderboardData = loadLeaderboard();
+// console.log(leaderboardData); 
+
+// renderCalendar();
+// setInterval(updateCountdowns, 1000);
+// updateCountdowns();
+
+// 1029538 - Cyrille
+// 1522078 - Aurélien 
+// 4467264 - Hugues 
+
+async function init() {
+  leaderboardData = await loadLeaderboard();  
+  // console.log(leaderboardData);   
+  // console.log(leaderboardData.members)    
+  // console.log(leaderboardData.members["1029538"].completion_day_level["12"])    
+  // console.log(leaderboardData.members["1522078"].completion_day_level["12"])    
+  // console.log(leaderboardData.members["4467264"].completion_day_level["12"])            
+  renderCalendar(leaderboardData);
+  updateCountdowns();
+  setInterval(updateCountdowns, 1000);
+}
+
+init();
+
+// renderCalendar()
+// setInterval(updateCountdowns, 1000);
+// updateCountdowns();
 
 // If succed one star -> switch star + drawing 
 // If succed two stars -> switch stars + drawing in color
@@ -127,28 +228,30 @@ updateCountdowns();
 
 
 // ASCII Drawing (Andreas Freise)
-//       \  / Y         ,a8   _/  _____
-//  \__   `X   \  ___/  `Y8  a8\      ---__________
-//     \_       \        a \/  |   _________       __________
-//      a  ._  _/_      a8a   /;                      _____
-//   __/P8    \  "8a. ./Y"8-__a:.    |.
-//  /a"" \.   a.    a88a'    88:     |
-//       /8a  Y8a    8P_  _  a8.:    |
-// --., / `878/88a._./Ü:\____a;; .   |
-//    a__   \:::.::.::.::.;;'.''     |                          ____
-// -_  `'\__/:.: ,:." .    .   .     |
-//  a.   /:.:. . .                   | =>.-.
-//   \_ /::. ,                     .-|| |]- )
-//     |:.                      .-\ a8"-'.-'/___
-// .   \:  .                  .'\ '   .-'  /
-// \.   /.                    (_/\_.-'  _:'   .aaaa.
-//  \:_/.  .              ___ \ (  _..:='  .a:8888P
-//   \:.                    ---\| /:='___-.88888P'
-//    |: .                      `"'  ...:88888P'
-//    /. .       ___                 888888P' . .
-//  ----_                            `8P"'                        ___
-//    _  \
-//   /   /                       ___
-//      a:
-//     .' \_
-
+const drawing = {
+  day1  : String.raw`       \  / t         ,a8   _/  _____                               `,
+  day2  : String.raw`  \__   "c   \  ___/  "Y8  a8\      ---__________                   `,
+  day3  : String.raw`     \_       \        a \/  |   _________       __________         `,
+  day4  : String.raw`      a  ._  _/_      a8a   /;                      _____           `,
+  day5  : String.raw`   __/P8    \  '8a. ./Y'8-__a:.    |*>                              `,
+  day6  : String.raw`  /a'' \.   a.    a66a'    88:     |                                `,
+  day7  : String.raw`       /8a  Y8a    6P_  _  a8.:    |                                `,
+  day8  : String.raw` --., / "878/88a._./8:\____a;; .   |                                `,
+  day9  : String.raw`    a__   \:::.::.::.::.;;;...     |                          ____  `,
+  day10 : String.raw` -_  (|\__/:.: ,:.. .    .   .     |                                `,
+  day11 : String.raw`  \.   /:.:. . .                   | =>.-.                          `,
+  day12 : String.raw`   \_ /::. ,                     .-|| |]- ]                         `,
+  day13 : String.raw`     |:.                      .-\ aa'-'.-'/___                      `,
+  day14 : String.raw` .   \:  .                  .'\ '   .-'  /                          `,
+  day15 : String.raw` \.   /.                   [ _/\_.-'  _:'   .8888.                  `,
+  day16 : String.raw`  \:_/.  .              ___ \ |  _..:='  .:8888P                    `,
+  day17 : String.raw`   \:.                    ---\| /:='___-.88888P'                    `,
+  day18 : String.raw`    |: .                      "''  ...:88888P'                      `,
+  day19 : String.raw`    /. .       ___                 888888P' . .                     `,
+  day20 : String.raw`  ----_                            "8P''                        ___ `,
+  day21 : String.raw`    _  \                                                            `,
+  day22 : String.raw`   /   /                       ___                                  `,
+  day23 : String.raw`      a:                                                            `,
+  day24 : String.raw`     ./ \_                                                          `,
+  day25 : String.raw`   <     \ -.                                 ______                `
+}
