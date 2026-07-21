@@ -57,9 +57,22 @@ function renderCalendar(leaderboard) {
     else {
       output = document.createElement("span");
       output.classList.add("calendar-stars");
-      nb_stars = checkValid(leaderboard, row)
-      output.textContent = "*".repeat(nb_stars);
       output.style.color = "#f65c0e";
+      const [starsOne, starsTwo] = checkValid(leaderboard, row);
+      
+      if (starsOne > 0) {
+        const star1 = document.createElement("span");
+        star1.textContent = "*";
+        star1.style.opacity = starsOne / 3;
+        output.appendChild(star1);
+      }
+
+      if (starsTwo > 0) {
+        const star2 = document.createElement("span");
+        star2.textContent = "*";
+        star2.style.opacity = starsTwo / 3;
+        output.appendChild(star2);
+      }
     }
 
     if (diff > 0) {
@@ -71,11 +84,14 @@ function renderCalendar(leaderboard) {
     }
 
     // Drawing 
-    if (nb_stars === 1) {
+    const [starsOne, starsTwo] = checkValid(leaderboard, row);
+    if (starsOne > 0) {
       filler.textContent = drawing[`day${row}`];
+      filler.style.opacity = starsTwo / 3;
     }
-    if (nb_stars === 2) {
+    if (starsTwo > 0) {
       filler.innerHTML = colorize(drawing[`day${row}`]);
+      filler.style.opacity = starsTwo / 3;
     }
 
     // const star = document.createElement("span");
@@ -124,27 +140,27 @@ async function loadLeaderboard() {
   }
 }
 
-function checkValid(leaderboard, day) {
-  let starOne = false
-  let starTwo = false
-  if (leaderboard.members["1029538"].completion_day_level[day]?.[1] &&
-      leaderboard.members["1522078"].completion_day_level[day]?.[1] &&
-      leaderboard.members["4467264"].completion_day_level[day]?.[1]) {
-        starOne = true
-  }
-  if (leaderboard.members["1029538"].completion_day_level[day]?.[2] &&
-      leaderboard.members["1522078"].completion_day_level[day]?.[2] &&
-      leaderboard.members["4467264"].completion_day_level[day]?.[2]) {
-        starTwo = true
-  }
-  if (starOne && starTwo) {
-    return 2
-  } else if (starOne) {
-    return 1
-  } else {
-    return 0
-  }
 
+function checkIfFinish(leaderboard, usr, day, part) {
+  if (leaderboard.members[usr].completion_day_level[day]?.[part]) {
+    return 1
+  }
+  return 0
+}
+
+function checkValid(leaderboard, day) {
+  let starOne = 0
+  let starTwo = 0
+
+  starOne += checkIfFinish(leaderboard, "1029538", day, 1)
+  starOne += checkIfFinish(leaderboard, "1522078", day, 1)
+  starOne += checkIfFinish(leaderboard, "4467264", day, 1)
+
+  starTwo += checkIfFinish(leaderboard, "1029538", day, 2)
+  starTwo += checkIfFinish(leaderboard, "1522078", day, 2)
+  starTwo += checkIfFinish(leaderboard, "4467264", day, 2)
+
+  return [starOne, starTwo]
 }
 
 function classify(ch) {
