@@ -87,7 +87,7 @@ function renderCalendar(leaderboard) {
     const [starsOne, starsTwo] = checkValid(leaderboard, row);
     if (starsOne > 0) {
       filler.textContent = drawing[`day${row}`];
-      filler.style.opacity = starsTwo / 3;
+      filler.style.opacity = starsOne / 3;
     }
     if (starsTwo > 0) {
       filler.innerHTML = colorize(drawing[`day${row}`]);
