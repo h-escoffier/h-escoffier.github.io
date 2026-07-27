@@ -1,8 +1,9 @@
 
-const rows = 25; 
 
+const rows = 25; 
 const calendar = document.querySelector("#calendar");
 const countdowns = [];
+
 
 function renderCalendar(leaderboard) {
   
@@ -14,11 +15,14 @@ function renderCalendar(leaderboard) {
     let output;
     let nb_stars;
 
-    if (row <= 10) {
+    if (row <= 8) {
       targetDate = new Date(2026, 6, 19 + row, 7, 59, 59);
     }
+    else if (row <= 9) {
+      targetDate = new Date(2026, 6, 20 + row, 7, 59, 59);
+    }
     else if (row <= 20) {
-      let day = row - 10 
+      let day = row - 19 
       targetDate = new Date(2026, 7, 3 + row, 7, 59, 59);
     }
     else {
@@ -105,6 +109,7 @@ function renderCalendar(leaderboard) {
   }
 }
 
+
 function updateCountdowns() {
   countdowns.forEach(({ targetDate, element, day }) => {
     const now = new Date();
@@ -128,6 +133,7 @@ function updateCountdowns() {
   });
 }
 
+
 let leaderboard = null;
 async function loadLeaderboard() {
   try {
@@ -148,6 +154,7 @@ function checkIfFinish(leaderboard, usr, day, part) {
   return 0
 }
 
+
 function checkValid(leaderboard, day) {
   let starOne = 0
   let starTwo = 0
@@ -163,6 +170,7 @@ function checkValid(leaderboard, day) {
   return [starOne, starTwo]
 }
 
+
 function classify(ch) {
   if (ch === 'a' || ch === 'A') return 'sail';
   if (ch === '8') return 'hull';
@@ -172,13 +180,13 @@ function classify(ch) {
   return 'default';
 }
 
+
 function colorize(line) {
   return line
     .split('')
     .map(ch => {
       if (ch === ' ') return ' ';
       const cls = classify(ch);
-      // échapper les caractères HTML sensibles
       const safe = ch === '<' ? '&lt;' : ch === '>' ? '&gt;' : ch === '&' ? '&amp;' : ch;
       return `<span class="${cls}">${safe}</span>`;
     })
@@ -199,19 +207,19 @@ function colorize(line) {
 // 1522078 - Aurélien 
 // 4467264 - Hugues 
 
+
 async function init() {
   leaderboardData = await loadLeaderboard();  
   // console.log(leaderboardData);   
   // console.log(leaderboardData.members)    
-  // console.log(leaderboardData.members["1029538"].completion_day_level["12"])    
-  // console.log(leaderboardData.members["1522078"].completion_day_level["12"])    
-  // console.log(leaderboardData.members["4467264"].completion_day_level["12"])            
   renderCalendar(leaderboardData);
   updateCountdowns();
   setInterval(updateCountdowns, 1000);
 }
 
+
 init();
+
 
 // renderCalendar()
 // setInterval(updateCountdowns, 1000);

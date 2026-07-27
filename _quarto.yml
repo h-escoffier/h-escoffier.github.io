@@ -1,9 +1,15 @@
 project:
   type: website
-  output-dir: docs
+  
   resources: 
+    - index.html 
+    - _fonts
     - assets
-    - projects/hidden_projects/
+    - soc/
+    - art
+    - projects
+    - reflets
+    - projects
 
 
 website:
@@ -11,18 +17,18 @@ website:
   site-url: https://h-escoffier.github.io
   description: "personal blog"
 
-  navbar:
-    right:
-      - text: Home
-        href: index.qmd
-      - text: Projects
-        href: projects/index.qmd
-      - text: Reflect
-        href: reflect/index.qmd
-      - text: Art
-        href: art/index.qmd
-      - text: Advent of Code
-        href: advent_of_code/index.qmd
+  # navbar:
+  #   right:
+  #     - text: Home
+  #       href: index.qmd
+  #     - text: Projects
+  #       href: projects/index.qmd
+  #     - text: Reflect
+  #       href: reflect/index.qmd
+  #     - text: Art
+  #       href: art/index.qmd
+  #     - text: Advent of Code
+  #       href: advent_of_code/index.qmd
 
 format:
   html:
