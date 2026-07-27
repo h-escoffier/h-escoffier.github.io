@@ -10,6 +10,7 @@ project:
     - projects
     - reflets
     - projects
+    - advent_of_code
 
 
 website:
