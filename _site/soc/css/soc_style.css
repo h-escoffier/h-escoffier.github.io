@@ -1,0 +1,139 @@
+@font-face {
+  font-family: 'Source Code Pro';
+  font-style: normal;
+  font-weight: 300;
+  src: url(../../_fonts/SourceCodePro-300.woff) format('woff');
+}
+
+body {
+  background: #0b1a2b; /* Change background */ 
+  font-family: "Source Code Pro", monospace;
+  font-weight: 300;
+  font-size: 14pt;
+  min-width: 60em;
+}
+
+img { border:0; }
+a { outline:0; }
+main, figure, figcaption { display:block; }
+pre, code { font-family: "Source Code Pro", monospace; }
+header, main {
+  -webkit-text-size-adjust: none;
+}
+
+h1, h2 {
+  font-size: 1em;
+  font-weight: normal;
+}
+
+pre.wrap {
+  max-width: 100%;
+  white-space: pre-wrap;
+}
+
+.quiet {
+  opacity: .5;
+}
+p.wrap {
+  width: 45em;
+}
+
+.hidden-until-hover {
+  border: 1px dotted rgb(0, 0, 0);
+  overflow: hidden;
+  position: relative;
+  padding: 0 .5em;
+  transition: border-color 0s linear 5s;
+}
+.hidden-until-hover:before {
+  content: "(hover to reveal)";
+  position: absolute;
+  opacity: .5;
+  text-align: center;
+  left: 0;
+  top: 0;
+  width: 100%;
+  overflow: hidden;
+  transition: width 0s linear 5s;
+}
+.hidden-until-hover > * {
+  visibility: hidden;
+  transition: visibility 0s linear 5s;
+}
+.hidden-until-hover:hover {
+  transition: border-color 0s linear 1s;
+  border-color: transparent;
+}
+.hidden-until-hover:hover:before {
+  content: "( keep hovering )";
+  transition: width 0s linear 1s;
+  width: 0;
+}
+.hidden-until-hover:hover > * {
+  transition: visibility 0s linear 1s;
+  visibility: visible;
+}
+
+.warning:not(.warning-active) {
+  transition: color 1s, opacity 1s;
+}
+.warning-active {
+  color: #ff0000;
+  opacity: 1;
+}
+
+header {
+  white-space: nowrap;
+  cursor: default;
+  z-index: 100;
+  margin-bottom: 2em;
+}
+header h1 {
+  display: inline-block;
+  margin: 0;
+  padding-right: 10em;
+  /* padding-left: 0px; */
+}
+header h1 a, header h1 span {
+  display: inline-block;
+  text-decoration: none;
+  color: #FFC10D;
+  text-shadow: 0 0 2px #f65c0e, 0 0 5px #f65c0e;
+}
+header h1 a:hover, header h1 a:focus {
+  color: #FFC10D;
+  text-shadow: 0 0 2px #f65c0e, 0 0 5px #f65c0e;
+}
+header h1.title-event .title-event-wrap {
+  opacity: .33;
+  white-space: pre;
+}
+
+.calendar > span {
+  color: #333333;
+}
+.calendar > a {
+  text-decoration: none;
+  color: #666666;
+  outline: none;
+  cursor: default;
+}
+.calendar a:hover, .calendar a:focus {
+  background-color: #1e1e46;
+  background-color: rgba(119,119,165,.2);
+  cursor: pointer;
+}
+
+.calendar a .calendar-day { color: #3f91d3; }
+
+.calendar-day {
+  display: inline-block;
+  width: 33.59px;
+  text-align: right;
+}
+
+.sail    { color: #f2f2e9; }
+.hull    { color: #c98a4b; }
+.rig     { color: #6b7f8f; }
+.water   { color: #3f91d3; }
+.default { color: #d8d8d0; }
