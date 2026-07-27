@@ -1,6 +1,6 @@
 project:
   type: website
-  
+  output-dir: docs
   resources: 
     - index.html 
     - _fonts

@@ -60,7 +60,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
 <script src="../../site_libs/clipboard/clipboard.min.js"></script>
 <script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
 <script src="../../site_libs/quarto-search/fuse.min.js"></script>
@@ -78,11 +77,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../../site_libs/bootstrap/bootstrap-6a2c4b793c0becaeb94cc5bf146c1484.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
-  "location": "navbar",
+  "location": "sidebar",
   "copy-button": false,
   "collapse-after": 3,
-  "panel-placement": "end",
-  "type": "overlay",
+  "panel-placement": "start",
+  "type": "textbox",
   "limit": 50,
   "keyboard-shortcut": [
     "f",
@@ -108,47 +107,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </head>
 
-<body class="nav-fixed quarto-light">
+<body class="quarto-light">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top">
-    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
-      <div class="navbar-container container-fluid">
-            <div id="quarto-search" class="" title="Search"></div>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
-  <span class="navbar-toggler-icon"></span>
-</button>
-          <div class="collapse navbar-collapse" id="navbarCollapse">
-            <ul class="navbar-nav navbar-nav-scroll ms-auto">
-  <li class="nav-item">
-    <a class="nav-link" href="../../index.html"> 
-<span class="menu-text">Home</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../../projects/index.html"> 
-<span class="menu-text">Projects</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../../reflect/index.html"> 
-<span class="menu-text">Reflect</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../../art/index.html"> 
-<span class="menu-text">Art</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../../advent_of_code/index.qmd"> 
-<span class="menu-text">Advent of Code</span></a>
-  </li>  
-</ul>
-          </div> <!-- /navcollapse -->
-            <div class="quarto-navbar-tools">
-</div>
-      </div> <!-- /container-fluid -->
-    </nav>
-</header>
 <!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
@@ -207,7 +170,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Model performance was assessed on the log10 scale using the root mean squared error (RMSE), which quantifies the average magnitude of prediction error while penalizing larger deviations more strongly.</p>
 <p>To facilitate interpretation in a biochemical context, errors were additionally expressed as fold deviations (e.g., an RMSE of 1 on the log10 scale corresponds to an approximate 10-fold error).</p>
 <p>The Pearson correlation coefficient was also computed on the log10-transformed values to evaluate the strength of the linear relationship between predicted and experimental kcat values. However, the relevance of this metric should be interpreted with caution, as the assumption of a strictly linear relationship between predicted and measured values may not be fully justified in this context.</p>
-<div id="ef4de51b" class="cell" data-execution_count="1">
+<div id="2e6c98db" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd </span>
 <span id="cb1-2"><a href="#cb1-2"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-3"><a href="#cb1-3"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
@@ -278,7 +241,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-68"><a href="#cb1-68"></a>merged_eitlem <span class="op">=</span> pd.merge(exp_sub, eitlem_sub, on<span class="op">=</span>merge_cols, how<span class="op">=</span><span class="st">"outer"</span>)</span>
 <span id="cb1-69"><a href="#cb1-69"></a>merged_unikp <span class="op">=</span> pd.merge(exp_sub, unikp_sub, on<span class="op">=</span>merge_cols, how<span class="op">=</span><span class="st">"outer"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="a092a8d6" class="cell" data-execution_count="2">
+<div id="2d5e9dc4" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a><span class="co"># Dlkcat </span></span>
 <span id="cb2-2"><a href="#cb2-2"></a><span class="co"># Drop rows where one of the kcat values is missing</span></span>
 <span id="cb2-3"><a href="#cb2-3"></a>plot_df <span class="op">=</span> merged.dropna(subset<span class="op">=</span>[<span class="st">"kcat_sabio"</span>, <span class="st">"kcat_catapro"</span>])</span>
@@ -363,7 +326,7 @@ Pearson r (log10):   0.501</code></pre>
 </div>
 </div>
 </div>
-<div id="26f4227a" class="cell" data-execution_count="3">
+<div id="c5767b3d" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a><span class="co"># Eitlem </span></span>
 <span id="cb4-2"><a href="#cb4-2"></a><span class="co"># Drop rows where one of the kcat values is missing</span></span>
 <span id="cb4-3"><a href="#cb4-3"></a>plot_df <span class="op">=</span> merged_eitlem.dropna(subset<span class="op">=</span>[<span class="st">"kcat_sabio"</span>, <span class="st">"kcat_catapro"</span>])</span>
@@ -448,7 +411,7 @@ Pearson r (log10):   0.748</code></pre>
 </div>
 </div>
 </div>
-<div id="d100b240" class="cell" data-execution_count="4">
+<div id="253afb72" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1"></a><span class="co"># eitlem </span></span>
 <span id="cb6-2"><a href="#cb6-2"></a><span class="co"># Drop rows where one of the kcat values is missing</span></span>
 <span id="cb6-3"><a href="#cb6-3"></a>plot_df <span class="op">=</span> merged_unikp.dropna(subset<span class="op">=</span>[<span class="st">"kcat_sabio"</span>, <span class="st">"kcat_catapro"</span>])</span>
