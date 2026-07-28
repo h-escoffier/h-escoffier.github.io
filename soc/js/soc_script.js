@@ -1,9 +1,23 @@
 
+// I need to clean this code but it's working :) 
 
 const rows = 25; 
 const calendar = document.querySelector("#calendar");
 const countdowns = [];
+const refresh = document.querySelector(".title-event-wrap");
+const textOriginal = "0x0000|";
 
+let isHovering = false;
+
+
+
+function scrambleTo(newText) {
+  gsap.to(refresh, {
+    duration: 1.2,
+    scrambleText: { text: newText, chars: "lowerCase", speed: 0.3 },
+    overwrite: true
+  });
+}
 
 function renderCalendar(leaderboard) {
   
@@ -80,10 +94,12 @@ function renderCalendar(leaderboard) {
     }
 
     if (diff > 0) {
+      // console.log(countdowns)
       countdowns.push({
         targetDate,
         element: output,
-        day: row
+        day: row, 
+        type: 'day'
       });
     }
 
@@ -110,26 +126,80 @@ function renderCalendar(leaderboard) {
 }
 
 
+// function updateCountdowns() {
+//   countdowns.forEach(({targetDate, element, day ,type}) => {
+//     const now = new Date();
+//     const diff = targetDate - now;
+    
+//     if (type === 'day') {
+
+//     if (diff <= 0) {
+//       element.textContent = ``;
+//       return;
+//     }
+
+//     const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+//     const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+//     const minutes = Math.floor((diff / (1000 * 60)) % 60);
+//     const seconds = Math.floor((diff / 1000) % 60);
+
+//     element.textContent = 
+//       `${String(days).padStart(2, "0")}:` +
+//       `${String(hours).padStart(2, "0")}:` +
+//       `${String(minutes).padStart(2, "0")}:` +
+//       `${String(seconds).padStart(2, "0")}`;
+  
+//     } else if (type === 'refresh') {
+//     if (diff  <= 0) {
+//       element.textContent = `---now|`;
+//       if (isHovering) scrambleTo(element.textContent);
+//       return;
+//     }
+//     const minutes = Math.floor((diff / (1000 * 60)) % 60);
+//     const seconds = Math.floor((diff / 1000) % 60);
+//     const refreshString = `0x${String(minutes).padStart(2, "0")}`+`${String(seconds).padStart(2, "0")}|`;
+//     element.textContent = refreshString;
+//     if (isHovering) scrambleTo(refreshString);
+//     return;
+//   }
+// });
+// }
+
+
 function updateCountdowns() {
-  countdowns.forEach(({ targetDate, element, day }) => {
+  countdowns.forEach((countdownObj) => {
+    const { targetDate, element, type } = countdownObj;
     const now = new Date();
     const diff = targetDate - now;
 
-    if (diff <= 0) {
-      element.textContent = ``;
-      return;
+    if (type === 'day') {
+      if (diff <= 0) {
+        element.textContent = ``;
+        return;
+      }
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((diff / (1000 * 60)) % 60);
+      const seconds = Math.floor((diff / 1000) % 60);
+
+      element.textContent =
+        `${String(days).padStart(2, "0")}:` +
+        `${String(hours).padStart(2, "0")}:` +
+        `${String(minutes).padStart(2, "0")}:` +
+        `${String(seconds).padStart(2, "0")}`;
+
+    } else if (type === 'refresh') {
+      let text;
+      if (diff <= 0) {
+        text = `---now|`;
+      } else {
+        const minutes = Math.floor((diff / (1000 * 60)) % 60);
+        const seconds = Math.floor((diff / 1000) % 60);
+        text = `0x${String(minutes).padStart(2, "0")}${String(seconds).padStart(2, "0")}|`;
+      }
+      countdownObj.currentText = text; 
+      if (isHovering) refresh.textContent = text;;
     }
-
-    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-    const minutes = Math.floor((diff / (1000 * 60)) % 60);
-    const seconds = Math.floor((diff / 1000) % 60);
-
-    element.textContent = 
-      `${String(days).padStart(2, "0")}:` +
-      `${String(hours).padStart(2, "0")}:` +
-      `${String(minutes).padStart(2, "0")}:` +
-      `${String(seconds).padStart(2, "0")}`;
   });
 }
 
@@ -210,9 +280,31 @@ function colorize(line) {
 
 async function init() {
   leaderboardData = await loadLeaderboard();  
-  // console.log(leaderboardData);   
-  // console.log(leaderboardData.members)    
-  renderCalendar(leaderboardData);
+
+  const leaderbordDataStars = JSON.parse(leaderboardData.data)
+  
+  console.log("Fetch at:", leaderboardData.fetchedAt);
+  const fetchTime = new Date(leaderboardData.fetchedAt)
+  console.log(fetchTime);
+  const nextFetch = new Date(fetchTime.getTime()); nextFetch.setMinutes(nextFetch.getMinutes() + 15);
+  console.log("New fetch at:", nextFetch);
+
+  const countdownObj = document.createElement("span")
+  countdownObj.classList.add(".title-event-wrap")
+  const refreshCountdown = {targetDate: nextFetch, element: countdownObj, day: '', type: 'refresh'};
+  countdowns.push(refreshCountdown);
+  
+  refresh.addEventListener("mouseenter", () => {
+    isHovering = true;
+    scrambleTo(refreshCountdown.currentText);
+  });
+
+  refresh.addEventListener("mouseleave", () => {
+    isHovering = false;
+    scrambleTo(textOriginal);
+  });
+  
+  renderCalendar(leaderbordDataStars);
   updateCountdowns();
   setInterval(updateCountdowns, 1000);
 }
