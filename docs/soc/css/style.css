@@ -8,13 +8,20 @@
 body {
   background: #0b1a2b; /* Change background */ 
   font-family: "Source Code Pro", monospace;
+  color: #d8d8d0;
   font-weight: 300;
   font-size: 14pt;
   min-width: 60em;
 }
 
-img { border:0; }
-a { outline:0; }
+img { 
+  border:0; 
+}
+
+a:hover { 
+  outline:0; 
+  color: #fae5a7;
+}
 main, figure, figcaption { display:block; }
 pre, code { font-family: "Source Code Pro", monospace; }
 header, main {
@@ -38,11 +45,21 @@ p.wrap {
   width: 45em;
 }
 
+.about-link {
+  text-decoration: none;
+  color: #FFC10D; 
+  text-shadow: none;
+}
+.about-link:hover, .about-link:focus {
+  color: #fae5a7;
+  text-shadow: none;
+}
+
 .hidden-until-hover {
   border: 1px dotted rgb(0, 0, 0);
   overflow: hidden;
   position: relative;
-  padding: 0 .5em;
+  padding: 0.5em;
   transition: border-color 0s linear 5s;
 }
 .hidden-until-hover:before {
@@ -82,6 +99,10 @@ p.wrap {
   opacity: 1;
 }
 
+ul {
+  padding-inline-start: 20px;
+}
+
 header {
   white-space: nowrap;
   cursor: default;
@@ -101,12 +122,65 @@ header h1 a, header h1 span {
   text-shadow: 0 0 2px #f65c0e, 0 0 5px #f65c0e;
 }
 header h1 a:hover, header h1 a:focus {
-  color: #FFC10D;
-  text-shadow: 0 0 2px #f65c0e, 0 0 5px #f65c0e;
+  color: #fae5a7;
+  text-shadow: 0 0 2px #FFC10D, 0 0 5px #f65c0e;
 }
 header h1.title-event .title-event-wrap {
   opacity: .33;
   white-space: pre;
+}
+
+header nav {
+  display: inline-block;
+}
+header nav ul {
+  list-style-type: none;
+  /* padding: 0.4em; */
+  margin: 0;
+  display: inline-block;
+}
+header nav li {
+  display: inline-block;
+  padding-left: 0 .1em;
+  /* padding: 0em; */
+}
+header nav a {
+  display: inline-block;
+  text-decoration: none;
+  outline: none;
+}
+
+main {
+  font-size: 0.9em;
+}
+
+article {
+  width: 45em; 
+  margin-bottom: 2em; 
+  margin-top: 2em; 
+}
+
+article h2 { 
+  color: rgb(255, 255, 255); 
+  margin-top: 1em; 
+  margin-bottom: 1em; 
+  white-space: nowrap; 
+}
+
+article h2 + * { 
+  margin-top: 0px; 
+}
+
+article em { 
+  color: rgb(255, 255, 255);
+  font-style: normal;
+  text-shadow: rgb(255, 255, 255) 0px 0px 5px;
+ }
+
+article a { 
+  white-space: nowrap; 
+  text-decoration: none;
+  color: #FFC10D;
 }
 
 .calendar > span {

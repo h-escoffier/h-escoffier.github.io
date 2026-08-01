@@ -79,9 +79,9 @@ ul.task-list li input[type="checkbox"] {
     }
 
     const options = {
-      valueNames: ['listing-date','listing-title','listing-author','listing-image','listing-description','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
+      valueNames: ['listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
       
-      searchColumns: ["listing-date","listing-title","listing-author","listing-image","listing-description","listing-categories"],
+      searchColumns: ["listing-categories"],
     };
 
     window['quarto-listings'] = window['quarto-listings'] || {};
@@ -140,7 +140,7 @@ window.Quarto = {
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         
-    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(1)</span></div></div></div>
+    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(0)</span></div></div></div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
@@ -169,28 +169,7 @@ window.Quarto = {
 
 <div class="quarto-listing quarto-listing-container-default" id="listing-listing">
 <div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-listing-date-sort="1773788400000" data-listing-file-modified-sort="1779391006585" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="8" data-listing-word-count-sort="1593">
-<div class="thumbnail"><a href="../projects/posts/pred_vs_exp_in_yeast.html" class="no-external">
 
-<p class="card-img-top"><img src="posts/pred_vs_exp_in_yeast_files/figure-html/cell-3-output-2.png"  class="thumbnail-image card-img"/></p>
-
-</a></div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="../projects/posts/pred_vs_exp_in_yeast.html" class="no-external">kcat Prediction in Yeast-GEM is not that bad and the models gives different results</a>
-</h3>
-<div class="delink listing-description"><a href="../projects/posts/pred_vs_exp_in_yeast.html" class="no-external">
-In this study, we evaluate the performance of three machine learning models—DLKcat, Eitlem, and UniKP—for the prediction of enzymatic turnover numbers (kcat) in yeast. The…
-</a></div>
-</div>
-<div class="metadata">
-<a href="../projects/posts/pred_vs_exp_in_yeast.html" class="no-external">
-<div class="listing-date">
-Mar 18, 2026
-</div>
-</a>
-</div>
-</div>
 </div>
 <div class="listing-no-matching d-none">No matching items</div>
 </div></main> <!-- /main -->

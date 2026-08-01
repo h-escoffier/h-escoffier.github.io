@@ -1,14 +1,11 @@
 
-// I need to clean this code but it's working :) 
 
 const rows = 25; 
 const calendar = document.querySelector("#calendar");
 const countdowns = [];
 const refresh = document.querySelector(".title-event-wrap");
-const textOriginal = "0x0000|";
-
+const textOriginal = "0x0000";
 let isHovering = false;
-
 
 
 function scrambleTo(newText) {
@@ -18,6 +15,7 @@ function scrambleTo(newText) {
     overwrite: true
   });
 }
+
 
 function renderCalendar(leaderboard) {
   
@@ -36,12 +34,12 @@ function renderCalendar(leaderboard) {
       targetDate = new Date(2026, 6, 20 + row, 7, 59, 59);
     }
     else if (row <= 20) {
-      let day = row - 19 
-      targetDate = new Date(2026, 7, 3 + row, 7, 59, 59);
+      let day = row - 10 
+      targetDate = new Date(2026, 7, 5 + day, 7, 59, 59);
     }
-    else {
+    else { // Update later
       let day = row - 20 
-      targetDate = new Date(2026, 7, 15 + row, 7, 59, 59);
+      targetDate = new Date(2026, 7, 15 + day, 7, 59, 59);
     }
 
     const now = new Date();
@@ -94,7 +92,6 @@ function renderCalendar(leaderboard) {
     }
 
     if (diff > 0) {
-      // console.log(countdowns)
       countdowns.push({
         targetDate,
         element: output,
@@ -114,56 +111,11 @@ function renderCalendar(leaderboard) {
       filler.style.opacity = starsTwo / 3;
     }
 
-    // const star = document.createElement("span");
-    // star.classList.add("calendar-completion");
-    // star.textContent = "**";
-
     link.append(filler, " ", dayLabel, " ", output);
-    // link.append(filler, " ", dayLabel, " ", star);
     calendar.appendChild(link);
     calendar.appendChild(document.createElement("br"));
   }
 }
-
-
-// function updateCountdowns() {
-//   countdowns.forEach(({targetDate, element, day ,type}) => {
-//     const now = new Date();
-//     const diff = targetDate - now;
-    
-//     if (type === 'day') {
-
-//     if (diff <= 0) {
-//       element.textContent = ``;
-//       return;
-//     }
-
-//     const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-//     const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-//     const minutes = Math.floor((diff / (1000 * 60)) % 60);
-//     const seconds = Math.floor((diff / 1000) % 60);
-
-//     element.textContent = 
-//       `${String(days).padStart(2, "0")}:` +
-//       `${String(hours).padStart(2, "0")}:` +
-//       `${String(minutes).padStart(2, "0")}:` +
-//       `${String(seconds).padStart(2, "0")}`;
-  
-//     } else if (type === 'refresh') {
-//     if (diff  <= 0) {
-//       element.textContent = `---now|`;
-//       if (isHovering) scrambleTo(element.textContent);
-//       return;
-//     }
-//     const minutes = Math.floor((diff / (1000 * 60)) % 60);
-//     const seconds = Math.floor((diff / 1000) % 60);
-//     const refreshString = `0x${String(minutes).padStart(2, "0")}`+`${String(seconds).padStart(2, "0")}|`;
-//     element.textContent = refreshString;
-//     if (isHovering) scrambleTo(refreshString);
-//     return;
-//   }
-// });
-// }
 
 
 function updateCountdowns() {
@@ -191,11 +143,11 @@ function updateCountdowns() {
     } else if (type === 'refresh') {
       let text;
       if (diff <= 0) {
-        text = `---now|`;
+        text = `---now`;
       } else {
         const minutes = Math.floor((diff / (1000 * 60)) % 60);
         const seconds = Math.floor((diff / 1000) % 60);
-        text = `0x${String(minutes).padStart(2, "0")}${String(seconds).padStart(2, "0")}|`;
+        text = `-${String(minutes).padStart(2, "0")}'${String(seconds).padStart(2, "0")}`;
       }
       countdownObj.currentText = text; 
       if (isHovering) refresh.textContent = text;;
@@ -264,15 +216,6 @@ function colorize(line) {
 }
 
 
-// render 
-// Update every second
-// leaderboardData = loadLeaderboard();
-// console.log(leaderboardData); 
-
-// renderCalendar();
-// setInterval(updateCountdowns, 1000);
-// updateCountdowns();
-
 // 1029538 - Cyrille
 // 1522078 - Aurélien 
 // 4467264 - Hugues 
@@ -283,12 +226,9 @@ async function init() {
 
   const leaderbordDataStars = JSON.parse(leaderboardData.data)
   
-  console.log("Fetch at:", leaderboardData.fetchedAt);
+  // hidden counter setup
   const fetchTime = new Date(leaderboardData.fetchedAt)
-  console.log(fetchTime);
   const nextFetch = new Date(fetchTime.getTime()); nextFetch.setMinutes(nextFetch.getMinutes() + 15);
-  console.log("New fetch at:", nextFetch);
-
   const countdownObj = document.createElement("span")
   countdownObj.classList.add(".title-event-wrap")
   const refreshCountdown = {targetDate: nextFetch, element: countdownObj, day: '', type: 'refresh'};
@@ -311,36 +251,6 @@ async function init() {
 
 
 init();
-
-
-// renderCalendar()
-// setInterval(updateCountdowns, 1000);
-// updateCountdowns();
-
-// If succed one star -> switch star + drawing 
-// If succed two stars -> switch stars + drawing in color
-
-// import fs from 'fs'
-
-// const SESSION = process.env.AOC_SESSION
-// const URL = 'https://adventofcode.com/2025/leaderboard/private/view/1029538.json'
-
-// async function main() {
-//   const response = await fetch(URL, {
-//     headers: { Cookie: `session=${SESSION}` }
-//   })
-//   if (!response.ok) {
-//     throw new Error(`AoC returned ${response.status}`)
-//   }
-//   const data = await response.json()
-//   fs.writeFileSync('assets/leaderboard.json', JSON.stringify(data, null, 2))
-//   console.log('Leaderboard updated')
-// }
-
-// main().catch(err => {
-//   console.error(err)
-//   process.exit(1)
-// })
 
 
 // ASCII Drawing (Andreas Freise)
