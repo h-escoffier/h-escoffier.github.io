@@ -79,14 +79,22 @@ function renderCalendar(leaderboard) {
       if (starsOne > 0) {
         const star1 = document.createElement("span");
         star1.textContent = "*";
-        star1.style.opacity = starsOne / 3;
+        star1.style.opacity = starsOne / 2;
         output.appendChild(star1);
       }
 
       if (starsTwo > 0) {
         const star2 = document.createElement("span");
         star2.textContent = "*";
-        star2.style.opacity = starsTwo / 3;
+        star2.style.opacity = starsTwo / 2;
+
+        // In Progress -> Add some textShadow in addition
+
+        // star2.style.fontWeight = 300 + starsTwo * 100;
+        // text-shadow: rgb(255, 255, 255) 0px 0px 5px;
+        // star2.style.textShadow = `0 0 ${starsTwo * 3}px #dcd3d1`;
+        // star2.style.filter = `drop-shadow(0 0 ${starsTwo * 5}px #f65c0e)`;
+        // star2.style.textShadow= `0 0 ${starsTwo/3}px #f65c0e, 0 0 5px #f65c0e`
         output.appendChild(star2);
       }
     }
@@ -104,11 +112,11 @@ function renderCalendar(leaderboard) {
     const [starsOne, starsTwo] = checkValid(leaderboard, row);
     if (starsOne > 0) {
       filler.textContent = drawing[`day${row}`];
-      filler.style.opacity = starsOne / 3;
+      filler.style.opacity = starsOne / 2;
     }
     if (starsTwo > 0) {
       filler.innerHTML = colorize(drawing[`day${row}`]);
-      filler.style.opacity = starsTwo / 3;
+      filler.style.opacity = starsTwo / 2;
     }
 
     link.append(filler, " ", dayLabel, " ", output);
