@@ -33,9 +33,15 @@ function renderCalendar(leaderboard) {
     else if (row <= 9) {
       targetDate = new Date(2026, 6, 20 + row, 7, 59, 59);
     }
+    else if (row <= 12) {
+      let day = row - 12
+      targetDate = new Date(2026, 7, 1 + day, 7, 59, 59);
+      // console.log(row, day, targetDate)
+    }
     else if (row <= 20) {
-      let day = row - 10 
-      targetDate = new Date(2026, 7, 5 + day, 7, 59, 59);
+      let day = row - 13
+      targetDate = new Date(2026, 7, 10 + day, 7, 59, 59);
+      // console.log(row, day, targetDate)
     }
     else { // Update later
       let day = row - 20 
