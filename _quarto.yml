@@ -2,6 +2,7 @@ project:
   type: website
   output-dir: docs
   resources: 
+    - 404.html 
     - index.html 
     - _fonts
     - assets

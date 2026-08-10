@@ -1,0 +1,18 @@
+body {
+	background: rgba(0,0,0,0.9);
+}
+html, body {
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 100%;
+	margin: 0;
+	padding: 0;
+}
+
+.dvd {
+	width: clamp(130px, 25vw, 200px);
+	opacity: 1;
+	filter: sepia(100%) saturate(600%) brightness(100%) hue-rotate(190deg);
+}
