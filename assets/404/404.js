@@ -42,3 +42,5 @@ function moveImage() {
 function tint() {
 	$(".dvd").css("filter", `sepia(100%) saturate(600%) brightness(80%) hue-rotate(${Math.random() * 360}deg)`);
 }
+
+

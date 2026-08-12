@@ -206,6 +206,11 @@ article a {
   text-align: right;
 }
 
+.calendar-stars span,
+.sail, .hull, .rig, .water, .default {
+  text-shadow: 0 0 0.5px currentColor, 0 0 2px currentColor;
+}
+
 .sail    { color: #f2f2e9; }
 .hull    { color: #c98a4b; }
 .rig     { color: #6b7f8f; }
