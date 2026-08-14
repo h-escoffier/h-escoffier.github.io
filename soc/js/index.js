@@ -33,19 +33,19 @@ function renderCalendar(leaderboard) {
     else if (row <= 9) {
       targetDate = new Date(2026, 6, 20 + row, 7, 59, 59);
     }
-    else if (row <= 12) {
+    else if (row <= 16) {
       let day = row - 12
       targetDate = new Date(2026, 7, 1 + day, 7, 59, 59);
       // console.log(row, day, targetDate)
     }
-    else if (row <= 20) {
-      let day = row - 13
-      targetDate = new Date(2026, 7, 10 + day, 7, 59, 59);
-      // console.log(row, day, targetDate)
-    }
-    else { // Update later
-      let day = row - 20 
-      targetDate = new Date(2026, 7, 15 + day, 7, 59, 59);
+    // else if (row <= 24) {
+    //   let day = row - 24
+    //   targetDate = new Date(2026, 7, 10 + day, 7, 59, 59);
+    //   // console.log(row, day, targetDate)
+    // }
+    else { // Update holidays
+      let day = row - 17
+      targetDate = new Date(2026, 7, 24 + day, 7, 59, 59);
     }
 
     const now = new Date();
