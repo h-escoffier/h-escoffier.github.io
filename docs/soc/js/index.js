@@ -1,4 +1,6 @@
 
+// import { animate } from 'animejs';
+
 
 const rows = 25; 
 const calendar = document.querySelector("#calendar");
@@ -86,6 +88,7 @@ function renderCalendar(leaderboard) {
         const star1 = document.createElement("span");
         star1.textContent = "*";
         star1.style.opacity = starsOne / 2;
+        if (starsOne === 3) star1.classList.add("triple");
         output.appendChild(star1);
       }
 
@@ -94,6 +97,7 @@ function renderCalendar(leaderboard) {
         star2.textContent = "*";
         star2.style.opacity = starsTwo / 2;
 
+        if (starsTwo === 3) star2.classList.add("triple");
         // In Progress -> Add some textShadow in addition
 
         // star2.style.fontWeight = 300 + starsTwo * 100;

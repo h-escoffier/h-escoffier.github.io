@@ -13,11 +13,13 @@
 }
 
 @font-face {
-  font-family: 'Sohne';
-  font-style: normal;
-  font-weight: 300;
-  src: url(_fonts/Sohne.woff2) format('woff2');
+    font-family: "Endless";
+    src: url("../../../_fonts/Endless_Regular.ttf") format("truetype");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
 }
+
 
 :root {
     --rect-width: clamp(280px, 80vw, 600px);
@@ -28,7 +30,7 @@ body {
     background:#000;
     color:#ccc;
     /* font-family:"Jost", system-ui, sans-serif; */
-    font-family: "Sohne"; 
+    font-family: "Endless"; 
     height:100vh;
     display:flex;
     flex-direction:column;

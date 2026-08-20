@@ -216,3 +216,11 @@ article a {
 .rig     { color: #6b7f8f; }
 .water   { color: #3f91d3; }
 .default { color: #d8d8d0; }
+
+@keyframes triple-glow {
+  0%, 100% { text-shadow: 0 0 2px #f65c0e; }
+  50%      { text-shadow: 0 0 8px #ff920d, 0 0 2px #f65c0e; }
+}
+.triple {
+  animation: triple-glow 3.5s ease-in-out infinite;
+}
