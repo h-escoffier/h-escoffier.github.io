@@ -40,14 +40,14 @@ function renderCalendar(leaderboard) {
       targetDate = new Date(2026, 7, 1 + day, 7, 59, 59);
       // console.log(row, day, targetDate)
     }
-    // else if (row <= 24) {
-    //   let day = row - 24
-    //   targetDate = new Date(2026, 7, 10 + day, 7, 59, 59);
-    //   // console.log(row, day, targetDate)
-    // }
+    else if (row <= 21) {
+      let day = row - 18
+      targetDate = new Date(2026, 7, 25 + day, 7, 59, 59);
+      // console.log(row, day, targetDate)
+    }
     else { // Update holidays
-      let day = row - 17
-      targetDate = new Date(2026, 7, 24 + day, 7, 59, 59);
+      let day = row - 21
+      targetDate = new Date(2026, 7, 30 + day, 7, 59, 59);
     }
 
     const now = new Date();
