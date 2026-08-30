@@ -138,11 +138,14 @@ function renderCalendar(leaderboard) {
 
 function updateCountdowns() {
   countdowns.forEach((countdownObj) => {
-    const { targetDate, element, type } = countdownObj;
+    const { day, targetDate, element, type } = countdownObj;
     const now = new Date();
     const diff = targetDate - now;
 
     if (type === 'day') {
+      if (diff >= -1500 && diff <= 500) {
+          location.href = `https://adventofcode.com/2015/day/${day}`;
+      }
       if (diff <= 0) {
         element.textContent = ``;
         return;
@@ -171,6 +174,7 @@ function updateCountdowns() {
       if (isHovering) refresh.textContent = text;;
     }
   });
+  setTimeout(updateCountdowns, 1000);
 }
 
 
@@ -239,16 +243,16 @@ function colorize(line) {
 // 4467264 - Hugues 
 
 
-async function init() {
+(async function init() {
   leaderboardData = await loadLeaderboard();  
 
-  const leaderbordDataStars = JSON.parse(leaderboardData.data)
+  const leaderbordDataStars = JSON.parse(leaderboardData.data);
   
   // hidden counter setup
-  const fetchTime = new Date(leaderboardData.fetchedAt)
+  const fetchTime = new Date(leaderboardData.fetchedAt);
   const nextFetch = new Date(fetchTime.getTime()); nextFetch.setMinutes(nextFetch.getMinutes() + 15);
-  const countdownObj = document.createElement("span")
-  countdownObj.classList.add(".title-event-wrap")
+  const countdownObj = document.createElement("span");
+  countdownObj.classList.add(".title-event-wrap");
   const refreshCountdown = {targetDate: nextFetch, element: countdownObj, day: '', type: 'refresh'};
   countdowns.push(refreshCountdown);
   
@@ -264,11 +268,7 @@ async function init() {
   
   renderCalendar(leaderbordDataStars);
   updateCountdowns();
-  setInterval(updateCountdowns, 1000);
-}
-
-
-init();
+})()
 
 
 // ASCII Drawing (Andreas Freise)
