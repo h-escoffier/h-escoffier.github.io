@@ -1,17 +1,21 @@
 
 // import { animate } from 'animejs';
 
+SOC = {
+    "conf": {
+        "refresh_text": "0x0000",
+        "refresh_mins": 15,
+        "day_rows": 25
+    },
+    "status": {
+        "hovering": false
+    },
+    "countdowns": []
+}
 
-const rows = 25; 
-const calendar = document.querySelector("#calendar");
-const countdowns = [];
-const refresh = document.querySelector(".title-event-wrap");
-const textOriginal = "0x0000";
-let isHovering = false;
 
-
-function scrambleTo(newText) {
-  gsap.to(refresh, {
+function scrambleTo(target, newText) {
+  gsap.to(target, {
     duration: 1.2,
     scrambleText: { text: newText, chars: "lowerCase", speed: 0.3 },
     overwrite: true
@@ -21,10 +25,10 @@ function scrambleTo(newText) {
 
 function renderCalendar(leaderboard) {
   
+  const calendar = document.getElementById("calendar");
   calendar.innerHTML = "";
-  for (let row = 1; row <= rows; row++) {
+  for (let row = 1; row <= SOC.conf.day_rows; row++) {
 
-    let problemAvailable = false;
     let targetDate;
     let output;
     let nb_stars;
@@ -50,16 +54,13 @@ function renderCalendar(leaderboard) {
       targetDate = new Date(2026, 7, 31 + day, 7, 59, 59);
     }
 
-    const now = new Date();
-    const diff = targetDate - now;
-
-    if (diff <= 0) {
-      problemAvailable = true;
-    }
+    const ms_from_now = targetDate - new Date();
 
     const link = document.createElement("a");
     link.setAttribute("aria-label", `Day ${row}`);
-    if (problemAvailable === true) {
+
+    // show link to puzzle if unlocked
+    if (ms_from_now <= 0) {
       link.href = `https://adventofcode.com/2015/day/${row}`;
     }
     link.classList.add(`calendar-day${row}`, "calendar-row");
@@ -73,7 +74,7 @@ function renderCalendar(leaderboard) {
     dayLabel.classList.add("calendar-day");
     dayLabel.textContent = ` ${row}`;
 
-    if (diff > 0) {
+    if (ms_from_now > 0) {
       output = document.createElement("span");
       output.classList.add("calendar-counter");
       // updateCountdown(targetDate, counter, row);
@@ -109,8 +110,8 @@ function renderCalendar(leaderboard) {
       }
     }
 
-    if (diff > 0) {
-      countdowns.push({
+    if (ms_from_now > 0) {
+      SOC.countdowns.push({
         targetDate,
         element: output,
         day: row, 
@@ -137,20 +138,22 @@ function renderCalendar(leaderboard) {
 
 
 function updateCountdowns() {
-  countdowns.forEach((countdownObj) => {
-    const { targetDate, element, type } = countdownObj;
-    const now = new Date();
-    const diff = targetDate - now;
+  SOC.countdowns.forEach((countdownObj) => {
+    const { day, targetDate, element, type } = countdownObj;
+    const ms_from_now = targetDate - new Date();
 
     if (type === 'day') {
-      if (diff <= 0) {
+      if (ms_from_now >= -1500 && ms_from_now <= 0) {
+          location.href = `https://adventofcode.com/2015/day/${day}`;
+      }
+      if (ms_from_now <= 0) {
         element.textContent = ``;
         return;
       }
-      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-      const minutes = Math.floor((diff / (1000 * 60)) % 60);
-      const seconds = Math.floor((diff / 1000) % 60);
+      const days = Math.floor(ms_from_now / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((ms_from_now / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((ms_from_now / (1000 * 60)) % 60);
+      const seconds = Math.floor((ms_from_now / 1000) % 60);
 
       element.textContent =
         `${String(days).padStart(2, "0")}:` +
@@ -158,26 +161,27 @@ function updateCountdowns() {
         `${String(minutes).padStart(2, "0")}:` +
         `${String(seconds).padStart(2, "0")}`;
 
-    } else if (type === 'refresh') {
+    }
+    if (type === 'refresh') {
       let text;
-      if (diff <= 0) {
+      if (ms_from_now <= 0) {
         text = `---now`;
       } else {
-        const minutes = Math.floor((diff / (1000 * 60)) % 60);
-        const seconds = Math.floor((diff / 1000) % 60);
+        const minutes = Math.floor((ms_from_now / (1000 * 60)) % 60);
+        const seconds = Math.floor((ms_from_now / 1000) % 60);
         text = `-${String(minutes).padStart(2, "0")}'${String(seconds).padStart(2, "0")}`;
       }
       countdownObj.currentText = text; 
-      if (isHovering) refresh.textContent = text;;
+      if (SOC.status.hovering) refresh.textContent = text;
     }
   });
+  setTimeout(updateCountdowns, 1000);
 }
 
 
-let leaderboard = null;
 async function loadLeaderboard() {
   try {
-    const res = await fetch('https://aoc-proxy.h-esc.workers.dev');
+    const res = await fetch('https://aoc-proxy.h-esc.workers.dev', {cache: "reload"});
     if (!res.ok) throw new Error(`Worker error ${res.status}`);
     return await res.json();
   } catch (err) {
@@ -198,6 +202,10 @@ function checkIfFinish(leaderboard, usr, day, part) {
 function checkValid(leaderboard, day) {
   let starOne = 0
   let starTwo = 0
+
+  // 1029538 - Cyrille
+  // 1522078 - Aurélien 
+  // 4467264 - Hugues 
 
   starOne += checkIfFinish(leaderboard, "1029538", day, 1)
   starOne += checkIfFinish(leaderboard, "1522078", day, 1)
@@ -234,41 +242,34 @@ function colorize(line) {
 }
 
 
-// 1029538 - Cyrille
-// 1522078 - Aurélien 
-// 4467264 - Hugues 
-
-
-async function init() {
-  leaderboardData = await loadLeaderboard();  
-
-  const leaderbordDataStars = JSON.parse(leaderboardData.data)
+(async function init() {
+  let leaderboardData = await loadLeaderboard();
   
   // hidden counter setup
-  const fetchTime = new Date(leaderboardData.fetchedAt)
-  const nextFetch = new Date(fetchTime.getTime()); nextFetch.setMinutes(nextFetch.getMinutes() + 15);
-  const countdownObj = document.createElement("span")
-  countdownObj.classList.add(".title-event-wrap")
-  const refreshCountdown = {targetDate: nextFetch, element: countdownObj, day: '', type: 'refresh'};
-  countdowns.push(refreshCountdown);
-  
-  refresh.addEventListener("mouseenter", () => {
-    isHovering = true;
-    scrambleTo(refreshCountdown.currentText);
+  const fetch_time = new Date(leaderboardData.fetchedAt);
+  const next_fetch = new Date(fetch_time.getTime() + (1000 * 60 * SOC.conf.refresh_mins));
+
+  SOC.countdowns.push({
+      targetDate: next_fetch,
+      element: document.getElementById("refresh"),
+      day: '',
+      type: 'refresh'
   });
 
-  refresh.addEventListener("mouseleave", () => {
-    isHovering = false;
-    scrambleTo(textOriginal);
+  const refresh_el = document.getElementById("refresh");
+  refresh_el.addEventListener("mouseenter", () => {
+    SOC.status.hovering = true;
+    scrambleTo(refresh_el, SOC.countdowns[0].currentText);
+  });
+
+  refresh_el.addEventListener("mouseleave", () => {
+    SOC.status.hovering = false;
+    scrambleTo(refresh_el, SOC.conf.refresh_text);
   });
   
-  renderCalendar(leaderbordDataStars);
+  renderCalendar(JSON.parse(leaderboardData.data));
   updateCountdowns();
-  setInterval(updateCountdowns, 1000);
-}
-
-
-init();
+})()
 
 
 // ASCII Drawing (Andreas Freise)
