@@ -2,18 +2,16 @@
 // import { animate } from 'animejs';
 
 SOC = {
-    "conf":
-    {
+    "conf": {
         "refresh_text": "0x0000",
+        "refresh_mins": 15,
         "day_rows": 25
     },
-    "status":
-    {
+    "status": {
         "hovering": false
-    }
+    },
+    "countdowns": []
 }
-const countdowns = [];
-let leaderboard = null;
 
 
 function scrambleTo(target, newText) {
@@ -31,7 +29,6 @@ function renderCalendar(leaderboard) {
   calendar.innerHTML = "";
   for (let row = 1; row <= SOC.conf.day_rows; row++) {
 
-    let problemAvailable = false;
     let targetDate;
     let output;
     let nb_stars;
@@ -59,13 +56,11 @@ function renderCalendar(leaderboard) {
 
     const ms_from_now = targetDate - new Date();
 
-    if (ms_from_now <= 0) {
-      problemAvailable = true;
-    }
-
     const link = document.createElement("a");
     link.setAttribute("aria-label", `Day ${row}`);
-    if (problemAvailable) {
+
+    // show link to puzzle if unlocked
+    if (ms_from_now <= 0) {
       link.href = `https://adventofcode.com/2015/day/${row}`;
     }
     link.classList.add(`calendar-day${row}`, "calendar-row");
@@ -116,7 +111,7 @@ function renderCalendar(leaderboard) {
     }
 
     if (ms_from_now > 0) {
-      countdowns.push({
+      SOC.countdowns.push({
         targetDate,
         element: output,
         day: row, 
@@ -143,14 +138,12 @@ function renderCalendar(leaderboard) {
 
 
 function updateCountdowns() {
-  console.log("Countdowns")
-  countdowns.forEach((countdownObj) => {
+  SOC.countdowns.forEach((countdownObj) => {
     const { day, targetDate, element, type } = countdownObj;
     const ms_from_now = targetDate - new Date();
-    console.log(targetDate)
 
     if (type === 'day') {
-      if (ms_from_now >= -1500 && ms_from_now <= 500) {
+      if (ms_from_now >= -1500 && ms_from_now <= 0) {
           location.href = `https://adventofcode.com/2015/day/${day}`;
       }
       if (ms_from_now <= 0) {
@@ -179,7 +172,7 @@ function updateCountdowns() {
         text = `-${String(minutes).padStart(2, "0")}'${String(seconds).padStart(2, "0")}`;
       }
       countdownObj.currentText = text; 
-      if (SOC.status.hovering) refresh.textContent = text;;
+      if (SOC.status.hovering) refresh.textContent = text;
     }
   });
   setTimeout(updateCountdowns, 1000);
@@ -188,8 +181,7 @@ function updateCountdowns() {
 
 async function loadLeaderboard() {
   try {
-    //const res = await fetch('https://aoc-proxy.h-esc.workers.dev');
-    const res = await fetch('js/test_data.json');
+    const res = await fetch('https://aoc-proxy.h-esc.workers.dev', {cache: "reload"});
     if (!res.ok) throw new Error(`Worker error ${res.status}`);
     return await res.json();
   } catch (err) {
@@ -252,23 +244,22 @@ function colorize(line) {
 
 (async function init() {
   let leaderboardData = await loadLeaderboard();
-  const leaderbordDataStars = JSON.parse(leaderboardData.data);
   
   // hidden counter setup
-  const fetchTime = new Date(leaderboardData.fetchedAt);
-  const nextFetch = new Date(fetchTime.getTime());
-  nextFetch.setMinutes(nextFetch.getMinutes() + 15);
+  const fetch_time = new Date(leaderboardData.fetchedAt);
+  const next_fetch = new Date(fetch_time.getTime() + (1000 * 60 * SOC.conf.refresh_mins));
 
-  const countdownObj = document.createElement("span");
-  countdownObj.classList.add(".title-event-wrap");
-
-  const refreshCountdown = {targetDate: nextFetch, element: countdownObj, day: '', type: 'refresh'};
-  countdowns.push(refreshCountdown);
+  SOC.countdowns.push({
+      targetDate: next_fetch,
+      element: document.getElementById("refresh"),
+      day: '',
+      type: 'refresh'
+  });
 
   const refresh_el = document.getElementById("refresh");
   refresh_el.addEventListener("mouseenter", () => {
     SOC.status.hovering = true;
-    scrambleTo(refresh_el, refreshCountdown.currentText);
+    scrambleTo(refresh_el, SOC.countdowns[0].currentText);
   });
 
   refresh_el.addEventListener("mouseleave", () => {
@@ -276,7 +267,7 @@ function colorize(line) {
     scrambleTo(refresh_el, SOC.conf.refresh_text);
   });
   
-  renderCalendar(leaderbordDataStars);
+  renderCalendar(JSON.parse(leaderboardData.data));
   updateCountdowns();
 })()
 
