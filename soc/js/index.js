@@ -47,7 +47,7 @@ function renderCalendar(leaderboard) {
     }
     else { // Update holidays
       let day = row - 21
-      targetDate = new Date(2026, 7, 30 + day, 7, 59, 59);
+      targetDate = new Date(2026, 7, 31 + day, 7, 59, 59);
     }
 
     const now = new Date();
