@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ISGSB 2026 - Useful links</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,340;0,9..144,480;0,9..144,600;1,9..144,400&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #fafaf9;
+    --ink: #131211;
+    --muted: #706e69;
+    --line: #e4e2dd;
+    --font-serif: 'Fraunces', Georgia, serif;
+    --font-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+    --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--font-sans);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  main {
+    max-width: 620px;
+    margin: 0 auto;
+    padding: clamp(28px, 7vw, 64px) clamp(22px, 6vw, 28px) 80px;
+  }
+
+  a { color: inherit; }
+
+  :focus-visible {
+    outline: 2px solid var(--ink);
+    outline-offset: 2px;
+  }
+
+  /* Top nav pills */
+
+  nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: clamp(36px, 8vw, 56px);
+  }
+
+  nav a {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    text-decoration: none;
+    border: 1px dotted var(--ink);
+    padding: 0.4em 0.9em;
+    transition: background-color 0.15s ease, color 0.15s ease;
+  }
+
+  nav a:hover,
+  nav a:focus-visible {
+    background-color: var(--ink);
+    color: var(--bg);
+  }
+
+  /* Header */
+
+  h1 {
+    font-family: var(--font-serif);
+    font-weight: 600;
+    font-size: clamp(2.1rem, 7vw, 2.9rem);
+    letter-spacing: -0.01em;
+    line-height: 1.05;
+    margin: 0 0 0.4em;
+  }
+
+  .lede {
+    color: var(--muted);
+    max-width: 42ch;
+    margin: 0 0 clamp(40px, 9vw, 64px);
+  }
+
+  /* Sections */
+
+  section + section {
+    margin-top: clamp(36px, 8vw, 52px);
+  }
+
+  .section-label {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    color: var(--muted);
+    margin: 0 0 0.9em;
+    padding-bottom: 0.6em;
+    border-bottom: 1px solid var(--line);
+  }
+
+  /* Project entries */
+
+  .entry {
+    padding: 1.15em 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .entry-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.6em 1em;
+  }
+
+  .entry-name {
+    font-size: 1.05rem;
+    font-weight: 600;
+  }
+
+  .entry-tags {
+    display: flex;
+    gap: 0.5em;
+    flex-shrink: 0;
+  }
+
+  .entry-tags a {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    text-decoration: none;
+    border: 1px dotted var(--ink);
+    padding: 0.25em 0.7em;
+    white-space: nowrap;
+    transition: background-color 0.15s ease, color 0.15s ease;
+  }
+
+  .entry-tags a:hover,
+  .entry-tags a:focus-visible {
+    background-color: var(--ink);
+    color: var(--bg);
+  }
+
+  .entry-desc {
+    color: var(--muted);
+    font-size: 0.92rem;
+    max-width: 56ch;
+    margin-top: 0.4em;
+  }
+
+  /* Reference entries */
+
+  .ref {
+    padding: 0.9em 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .ref a {
+    text-decoration: underline;
+    text-decoration-color: var(--line);
+    text-underline-offset: 3px;
+  }
+
+  .ref a:hover,
+  .ref a:focus-visible {
+    text-decoration-color: var(--ink);
+  }
+
+  .ref-meta {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--muted);
+    margin-top: 0.3em;
+  }
+
+  @media (max-width: 420px) {
+    .entry-head {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; }
+  }
+</style>
+</head>
+<body>
+<main>
+
+  <nav>
+    <a href="https://github.com/h-escoffier">my github</a>
+    <a href="https://www.linkedin.com/in/hugues-escoffier/">my linkedin</a>
+  </nav>
+
+  <h1>Useful Ressources</h1>
+  <!-- <p class="lede">Everything referenced in the talk, gathered in one place.</p> -->
+
+  <section>
+    <h2 class="section-label">/ Projects</h2>
+
+    <div class="entry">
+      <div class="entry-head">
+        <span class="entry-name">COBREXA.jl</span>
+        <span class="entry-tags">
+          <a href="https://github.com/COBREXA/COBREXA.jl">repo</a>
+          <a href="https://cobrexa.github.io/COBREXA.jl/stable/">docs</a>
+        </span>
+      </div>
+      <p class="entry-desc">Julia framework for constraint-based metabolic modeling.</p>
+    </div>
+
+    <div class="entry">
+      <div class="entry-head">
+        <span class="entry-name">WILDkCAT</span>
+        <span class="entry-tags">
+          <a href="https://github.com/sysbiolux/WILDkCAT">repo</a>
+          <a href="https://sysbiolux.github.io/WILDkCAT/">docs</a>
+        </span>
+      </div>
+      <p class="entry-desc">Extract, Retrieve and Predict Kinetic Parameters for metabolic models.</p>
+    </div>
+
+    <div class="entry">
+      <div class="entry-head">
+        <span class="entry-name">Metabolic Media Library</span>
+        <span class="entry-tags">
+          <a href="https://github.com/sysbiolux/MetabolicMediaLibrary">repo</a>
+        </span>
+      </div>
+      <p class="entry-desc">Curated library of growth-media formulations for Recon3D and Human-GEM models.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="section-label">/ References</h2>
+
+    <div class="ref">
+      <a href="https://academic.oup.com/bioinformatics/article/41/2/btaf056/8005852">COBREXA 2: tidy and scalable construction of complex metabolic models</a>
+      <span class="ref-meta">Bioinformatics, 2025</span>
+    </div>
+
+    <div class="ref">
+      <a href="https://www.biorxiv.org/content/10.64898/2026.06.02.729587v1">Multi-omic data fusion reveals the in vivo enzyme kinetics of Vibrio natriegens at the genome-scale</a>
+      <span class="ref-meta">Biorxiv, 2026</span>
+    </div>
+
+    <div class="ref">
+      <a href="https://doi.org/10.1038/s41597-021-00890-2">An integrated landscape of protein expression in human cancer</a>
+      <span class="ref-meta">Scientific Data, 2021</span>
+    </div>
+
+    <div class="ref">
+      <a href="https://www.mcponline.org/article/S1535-9476(23)00137-8/fulltext">Pan-Cancer Proteomics Analysis to Identify Tumor-Enriched and Highly Expressed Cell Surface Antigens as Potential Targets for Cancer Therapeutics</a>
+      <span class="ref-meta">Molecular & Cellular Proteomics, 2023</span>
+    </div>
+  </section>
+
+</main>
+</body>
+</html>
